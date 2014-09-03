@@ -266,4 +266,3 @@ I'm still really happy with Wire.js. Even with the amount of time I've spent try
 Every day I learn something new at work, and I'm always geeking out over some new library/coding-pattern/bug. And while my wife is very kind to humors my long technical rants, I feel a coding blog *might* be a more appropriate outlet.
 
 I'd love to your feedback/complaints/ideas. Happy coding!
-

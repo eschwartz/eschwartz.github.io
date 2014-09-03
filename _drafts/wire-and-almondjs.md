@@ -1,4 +1,6 @@
 ---
+layout: post
+tags : [javascript, Wire.js, Almond.js, RequireJS, IoC, dependency injection]
 title: "Wire.js builds using the Almond.js AMD shim"
 ---
 I have been using [Wire.js](https://github.com/cujojs/wire) while building a weather maps application for my [employer](http://www.hamweather.com/), dubbed *Aeris Interactive*. If you're not familiar with Wire.js, here's a short summary from their github page:
@@ -44,7 +46,7 @@ One of the requirements for the library I'm creating is to be able to access com
 
 Generally I would use the [Almond.js](https://github.com/jrburke/almond) AMD shim to accomplish this. I just include Almond.js in my optimized build, then wrap it like so:
 
-{% hightlight javascript %}
+{% highlight javascript %}
 (function(root) {
   // Almond.js included here
   // My library included here
@@ -52,7 +54,7 @@ Generally I would use the [Almond.js](https://github.com/jrburke/almond) AMD shi
     TheAppImWorkingOn: require('app')
   }
 }(window));
-{% endhightlight %}
+{% endhighlight %}
 
 This gives me the best of both worlds: I have a repo with AMD modules for developers using RequireJS, and a traditional "global vars" library for users who don't want to mess with the whole AMD thing.
 
@@ -89,7 +91,7 @@ define(function() {
   });
   // ...
 });
-{% endhightlight %}
+{% endhighlight %}
 
 Pretty straightforward, eh? The key thing to note here, is that `wire()` is asynchronous (it returns a `Promise`). Which means that our `wire!` AMD loader plugin is necessarily asynchronous. Which means that any module which uses the `wire!` plugin is necessarily asynchronous. And there ain't nothing no magical synchronizing Almond.js fairy can do about it.
 
@@ -187,9 +189,9 @@ So, awesome -- we have our modules working, we got rid of that pesky `wire!` plu
 
 The r.js optimizer runs without a hitch. I turn gleefully to my browser, ready to reap the rewards of refactoring all of my modules.... and what's this?!
 
-{% hightlight bash %}
+{% highlight bash %}
   Uncaught Error: undefined missing controllers/timelinecontroller
-{% endhight %}
+{% endhighlight %}
 
 The `controllers/timelinecontroller` AMD module is missing from my build!
 
@@ -221,7 +223,7 @@ So I created a wrapper around the wire-rjs-builder, which prevents it from wirin
 
     return buildSpec;
   });
-{% endhightlight %}
+{% endhighlight %}
 
 The `buildSpec!` acts like the `wire!` plugin during a build, but otherwise it just resolved with the raw spec object.
 

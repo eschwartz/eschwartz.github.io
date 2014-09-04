@@ -1,0 +1,29 @@
+.icon-avatar {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: #446db9;
+}
+
+%circle-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  display: inline-block;
+}
+
+.icon-github {
+  @extend %circle-icon;
+  background-color: #d6a1e3;
+}
+
+.icon-contact {
+  @extend %circle-icon;
+  background-color: #4bd8a8;
+}
+
+.icon-about {
+  @extend %circle-icon;
+  background-color: #d8805d;
+}

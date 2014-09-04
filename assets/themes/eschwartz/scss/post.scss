@@ -1,0 +1,18 @@
+@import "compass";
+@import "compass/utilities/general";
+
+$article-width: 700px;
+
+$font-title: Georgia, serif;
+$font-header: 'Lucida Grande', 'Lucida Sans', sans-serif;
+$font-article: Georgia, serif;
+
+$text-color-title: rgba(0, 0, 0, 0.8);
+$text-color-header: rgba(0, 0, 0, 0.8);
+$text-color-article: rgba(0, 0, 0, 0.8);
+
+@import "partials/normalize";
+@import "partials/header";
+@import "partials/icons";
+@import "partials/article";
+

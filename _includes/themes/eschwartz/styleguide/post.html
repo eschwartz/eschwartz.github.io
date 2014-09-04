@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Edan Schwartz - Web Developer</title>
+
+  <link rel="stylesheet" href="../../../../assets/themes/eschwartz/css/post.css"/>
+</head>
+<body>
+
+<header>
+  <nav class="identity">
+    <i class="icon-avatar"></i>
+
+    <div class="title">Edan Schwartz</div>
+    <div class="subtitle">Web developer</div>
+  </nav>
+  <nav class="site-nav">
+    <ul>
+      <li><a href="https://github.com/eschwartz"><i class="icon-github"></i></a></li>
+      <li><a href="/contact.html"><i class="icon-contact"></i></a></li>
+      <li><a href="/about.html"><i class="icon-about"></i></a></li>
+    </ul>
+  </nav>
+</header>
+
+<article>
+<h1>Optimize Wire.js builds using the Almond.js AMD shim</h1>
+
+<p>I have been using <a href="https://github.com/cujojs/wire">Wire.js</a> while building a weather maps application for
+  my <a href="http://www.hamweather.com/">employer</a>, dubbed <em>Aeris Interactive</em>. If you’re not familiar with
+  Wire.js, here’s a short summary from their github page:</p>
+
+<blockquote>
+  <p>Wire is an Inversion of Control Container for Javascript apps, and acts as the Application Composition layer for
+    cujoJS.</p>
+</blockquote>
+
+<blockquote>
+  <p>Wire provides architectural plumbing that allows you to create and manage application components, and to connect
+    those components together in loosely coupled and non-invasive ways. Consequently, your components will be more
+    modular, easier to unit test and refactor, and your application will be easier to evolve and maintain.</p>
+</blockquote>
+
+<p>In other words, Wire.js does dependency injection for javascript. So I can do something like this:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span
+  class="c1">// context/app.js</span>
+  <span class="nx">define</span><span class="p">({</span>
+  <span class="nx">myView</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">create</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">module</span><span class="o">:</span> <span class="s1">&#39;views/baseView&#39;</span>
+  <span class="nx">args</span><span class="o">:</span> <span class="p">[{</span>
+  <span class="nx">template</span><span class="o">:</span> <span
+    class="s1">&#39;hbars!templates/myTemplate.html&#39;</span>
+  <span class="p">}]</span>
+  <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">// app.js</span>
+  <span class="nx">define</span><span class="p">([</span><span class="s1">&#39;wire!context/app&#39;</span><span
+    class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ctx</span><span
+    class="p">)</span> <span class="p">{</span>
+  <span class="c1">// ctx.myView is an instance of &#39;views/baseView&#39;,</span>
+  <span class="c1">// created with the &#39;templates/myTemplate.html.hbs&#39; template</span>
+  <span class="p">});</span></code></pre>
+</div>
+
+<p>Pretty cool, eh? I geek out on this kind of thing, so I’ve really enjoyed using Wire.js. Our code base is quite
+  large, and includes many different modularized components – it’s really nice to be able to configure all of these
+  components in one place.</p>
+
+<h2 id="using-almondjs">Using Almond.js</h2>
+
+<p>One of the requirements for the library I’m creating is to be able to access components within the global namespace.
+  This means users of the library won’t need to mess around with RequireJS.</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span
+  class="na">src=</span><span class="s">&quot;builtLib.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;script&gt;</span>
+  <span class="nx">myLib</span><span class="p">.</span><span class="nx">TheAppImWorkingOn</span><span
+    class="p">();</span>
+  <span class="nt">&lt;/script&gt;</span></code></pre>
+</div>
+
+<p>Generally I would use the <a href="https://github.com/jrburke/almond">Almond.js</a> AMD shim to accomplish this. I
+  just include Almond.js in my optimized build, then wrap it like so:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span
+  class="kd">function</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span
+  class="p">{</span>
+  <span class="c1">// Almond.js included here</span>
+  <span class="c1">// My library included here</span>
+  <span class="nx">root</span><span class="p">.</span><span class="nx">myLib</span> <span class="o">=</span> <span
+    class="p">{</span>
+  <span class="nx">TheAppImWorkingOn</span><span class="o">:</span> <span class="nx">require</span><span
+    class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="p">}(</span><span class="nb">window</span><span class="p">));</span></code></pre>
+</div>
+
+<p>This gives me the best of both worlds: I have a repo with AMD modules for developers using RequireJS, and a
+  traditional “global vars” library for users who don’t want to mess with the whole AMD thing.</p>
+
+<h2 id="wirejs-why-wont-you-play-nicely-with-almondjs">Wire.js: why won’t you play nicely with Almond.js?</h2>
+
+<p>I had been using this Almond.js setup for my <a href="https://github.com/hamweather/aerisjs">Aeris.js</a> without
+  problem. But then I tried to use Almond.js together on a project with Wire.js — not happening. Almond.js failed to
+  require the module, and I had no access to the global library objects.</p>
+
+<p>This was really a bummer. Of course, I waited until large portions of the library were written until attempting a
+  build. Ever try telling your boss, “yes, all of my tasks are done – I just can’t deliver anything this sprint”?</p>
+
+<p>I couldn’t for the life of me figure out what was going on. At this point, Almond.js was some kind of magical
+  synchronizing fairy in my mind, and I had already spent too many nights crying over RequireJS build configurations. I
+  was done. I threw in an ugly work-around using the full RequireJS library in builds, and brushed it off my
+  shoulders.</p>
+
+<h2 id="the-culprit-the-wire-amd-plugin">The culprit: the wire! AMD plugin</h2>
+
+<p>After a few months of living with an embarrassing hack, I woke one morning and realized my problem: the
+  <code>wire!</code> AMD plugin. Let’s look back at how we used this:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">define</span><span
+  class="p">([</span><span class="s1">&#39;wire!context/myApp.js&#39;</span><span class="p">],</span> <span class="kd">function</span><span
+  class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// myApp components are available as properties of `ctx`</span>
+  <span class="p">});</span></code></pre>
+</div>
+
+<p>So what is this doing behind the scenes? If you say “magic”, you’re only half write. Here’s what the
+  <code>wire!</code> plugin code looks like (<em>after some simplifications</em>):</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// wire.js</span>
+  <span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span
+    class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="nx">wire</span><span class="p">.</span><span class="nx">load</span> <span class="o">=</span> <span
+    class="kd">function</span><span class="p">(</span><span class="nx">amdModulePath</span><span class="p">,</span>
+  <span class="nx">require</span><span class="p">,</span> <span class="nx">onload</span><span class="p">)</span> <span
+    class="p">{</span>
+  <span class="c1">// Wire up the context</span>
+  <span class="nx">wire</span><span class="p">(</span><span class="nx">amdModulePath</span><span class="p">).</span>
+  <span class="c1">// resolve with the wired context</span>
+  <span class="nx">then</span><span class="p">(</span><span class="nx">onload</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="c1">// ...</span>
+  <span class="p">});</span></code></pre>
+</div>
+
+<p>Pretty straightforward, eh? The key thing to note here, is that <code>wire()</code> is asynchronous (it returns a
+  <code>Promise</code>). Which means that our <code>wire!</code> AMD loader plugin is necessarily asynchronous. Which
+  means that any module which uses the <code>wire!</code> plugin is necessarily asynchronous. And there ain’t nothing no
+  magical synchronizing Almond.js fairy can do about it.</p>
+
+<h2 id="the-solution-stop-using-wire-sort-of">The solution: stop using <code>wire!</code> (sort of)</h2>
+
+<p>So now the easy part: just stop using the <code>wire!</code> plugin, right? Because refactoring the initialization
+  logic of large applications is easy, right? Right, guys…?</p>
+
+<p>Getting rid of <code>wire!</code> posed two major problems:</p>
+
+<ol>
+  <li>How/where/when do I wire my Wire.js specs?</li>
+  <li>How does <code>r.js</code> know to build dependencies defined my my Wire.js specs?</li>
+</ol>
+
+<p>In short, here’s what I came up with:</p>
+
+<h3 id="howwherewhen-do-i-wire-my-wirejs-specs">1. How/where/when do I wire my Wire.js specs?</h3>
+
+<p>Getting rid of the <code>wire!</code> plugin means that I’ll have to wire my specs pragmatically. This means
+  introducing some asynchronous behavior to my application initialization.</p>
+
+<p>To handle the asynchronous initialization work, I created a WiredModule. It wires the context spec, and provides
+  several event-hooks for subclasses to add their own initialization logic.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">define</span><span
+  class="p">([</span><span class="s1">&#39;wire&#39;</span><span class="p">],</span> <span
+  class="kd">function</span><span class="p">(</span><span class="nx">wire</span><span class="p">)</span> <span
+  class="p">{</span>
+  <span class="kd">var</span> <span class="nx">WiredModule</span> <span class="o">=</span> <span
+    class="kd">function</span><span class="p">(</span><span class="nx">moduleSpec</span><span class="p">)</span> <span
+    class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">moduleSpec_</span> <span class="o">=</span> <span
+    class="nx">moduleSpec</span><span class="p">;</span>
+  <span class="p">};</span>
+  <span class="c1">// Mixin Backbone.Events (any event or pub/sub library would work fine)</span>
+  <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span
+    class="nx">WiredModule</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span
+    class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span><span class="p">);</span>
+
+  <span class="nx">WiredModule</span><span class="p">.</span><span class="nx">prototype</span><span
+    class="p">.</span><span class="nx">initialize</span> <span class="o">=</span> <span class="kd">function</span><span
+    class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Use Wire.js programmatically</span>
+  <span class="nx">wire</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span
+    class="nx">moduleSpec</span><span class="p">).</span>
+  <span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span
+    class="nx">wiredCtx</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Module subclasses can hook into `wire:after`</span>
+  <span class="c1">// to gain access to their wired context.</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span
+    class="s1">&#39;wire:after&#39;</span><span class="p">,</span> <span class="nx">wiredCtx</span><span
+    class="p">)</span>
+
+  <span class="c1">// For any listeners who don&#39;t need to know</span>
+  <span class="c1">// about the wiring logic</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span
+    class="s1">&#39;initialize&#39;</span><span class="p">);</span>
+  <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span
+    class="p">));</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="nx">WiredModule</span><span class="p">;</span>
+  <span class="p">});</span></code></pre>
+</div>
+
+<p>A module subclass might look something like this:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// context/animationModule.js</span>
+  <span class="nx">define</span><span class="p">({</span>
+  <span class="nx">animationTimelineController</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">create</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">module</span><span class="o">:</span> <span
+    class="s1">&#39;controllers/timelinecontroller&#39;</span><span class="p">,</span>
+  <span class="nx">args</span><span class="o">:</span> <span class="p">[</span>
+  <span class="nx">min</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span
+    class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1000</span> <span
+    class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span
+    class="p">,</span>
+  <span class="nx">max</span><span class="o">:</span> <span class="nb">Date</span><span class="p">.</span><span
+    class="nx">now</span><span class="p">()</span>
+  <span class="p">]</span>
+  <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">// modules/AnimationModule.js</span>
+  <span class="nx">define</span><span class="p">([</span>
+  <span class="s1">&#39;modules/WiredModule&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;context/animationModule&#39;</span>
+  <span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span
+    class="nx">WiredModule</span><span class="p">,</span> <span class="nx">animationModuleSpec</span><span
+    class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">AnimationModule</span> <span class="o">=</span> <span
+    class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Call the parent WiredModule with the animation module&#39;s</span>
+  <span class="c1">// Wire.js spec</span>
+  <span class="nx">WiredModule</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span
+    class="k">this</span><span class="p">,</span> <span class="nx">animationModuleSpec</span><span class="p">);</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;wire:after&#39;</span><span
+    class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ctx</span><span
+    class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Save wired objects to the module instance</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">timelineController_</span> <span
+    class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span
+    class="nx">animationTimelineController</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;initialize&#39;</span><span
+    class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">timelineController_</span><span class="p">.</span><span
+    class="nx">render</span><span class="p">();</span>
+  <span class="p">});</span>
+  <span class="p">};</span>
+  <span class="c1">// Inherit from the WiredModule</span>
+  <span class="nx">AnimationModule</span><span class="p">.</span><span class="nx">prototype</span> <span
+    class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span
+    class="p">(</span><span class="nx">WiredModule</span><span class="p">.</span><span class="nx">prototype</span><span
+    class="p">);</span>
+
+  <span class="k">return</span> <span class="nx">AnimationModule</span><span class="p">;</span>
+  <span class="p">});</span></code></pre>
+</div>
+
+<p>The asynchronous initialization code adds a little bit of complexity to our modules, but by using events, we can keep
+  the intent of the code clear.</p>
+
+<h3 id="how-does-rjs-know-to-build-dependencies-defined-my-my-wirejs-specs">2. How does <code>r.js</code> know to build
+  dependencies defined my my Wire.js specs?</h3>
+
+<p>So, awesome – we have our modules working, we got rid of that pesky <code>wire!</code> plugin, it’s time to run a
+  build!</p>
+
+<p>The r.js optimizer runs without a hitch. I turn gleefully to my browser, ready to reap the rewards of refactoring all
+  of my modules…. and what’s this?!</p>
+
+<div class="highlight">
+  <pre><code class="language-bash" data-lang="bash">Uncaught Error: undefined missing
+    controllers/timelinecontroller</code></pre>
+</div>
+
+<p>The <code>controllers/timelinecontroller</code> AMD module is missing from my build!</p>
+
+<p>This is when I remember that I had been using the <a
+  href="https://github.com/pieter-vanderwerff/wire-rjs-builder.git">wire-rjs-builder</a> as my <code>wire!</code>
+  plugin. This is a really handy project by <a href="http://pieter.io/">Pieter Vanderwerff</a> which scans through your
+  Wire.js spec during an r.js build, and adds any referenced module to the build. It was a lifesaver when I first found
+  it. But now that I’m not using the <code>wire!</code> problem, how do I make sure all of the modules referenced in my
+  spec get added to the build?</p>
+
+<p>What if we could still use the wire-rjs-builder AMD plugin, but only for builds?</p>
+
+<p>So I created a wrapper around the wire-rjs-builder, which prevents it from wiring specs, but still adds any
+  referenced modules to builds.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span
+  class="c1">// buildSpec.js</span>
+  <span class="nx">define</span><span class="p">([</span><span class="s1">&#39;wire-rjs-builder&#39;</span><span
+    class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">rjsBuilder</span><span
+    class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">buildSpec</span> <span class="o">=</span> <span class="p">{};</span>
+
+  <span class="nx">buildSpec</span><span class="p">.</span><span class="nx">load</span> <span class="o">=</span> <span
+    class="kd">function</span><span class="p">(</span><span class="nx">wireSpec</span><span class="p">,</span> <span
+    class="nx">parentRequire</span><span class="p">,</span> <span class="nx">onload</span><span class="p">,</span> <span
+    class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// We&#39;re in an r.js build:</span>
+  <span class="c1">// let the wire-rjs-builder do its thing</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">.</span><span
+    class="nx">isBuild</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">rjsBuilder</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span
+    class="nx">wireSpec</span><span class="p">,</span> <span class="nx">parentRequire</span><span class="p">,</span>
+  <span class="nx">onload</span><span class="p">,</span> <span class="nx">config</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+  <span class="c1">// Otherwise, resolve with the raw spec.</span>
+  <span class="nx">parentRequire</span><span class="p">([</span><span class="nx">wireSpec</span><span
+    class="p">],</span> <span class="nx">onload</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="c1">// Use the rjsBuilder plugin for module optimization (r.js).</span>
+  <span class="nx">buildSpec</span><span class="p">.</span><span class="nx">write</span> <span class="o">=</span> <span
+    class="nx">rjsBuilder</span><span class="p">.</span><span class="nx">write</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">buildSpec</span><span class="p">;</span>
+  <span class="p">});</span></code></pre>
+</div>
+
+<p>The <code>buildSpec!</code> acts like the <code>wire!</code> plugin during a build, but otherwise it just resolved
+  with the raw spec object.</p>
+
+<p>With a simple modification to my AnimationModule, I can fix my build-dependency issue:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// modules/AnimationModule.js</span>
+  <span class="nx">define</span><span class="p">([</span>
+  <span class="s1">&#39;modules/WiredModule&#39;</span><span class="p">,</span>
+
+  <span class="c1">// CHANGED:</span>
+  <span class="c1">// Use the `buildSpec` plugin to load my Wire.js context</span>
+  <span class="s1">&#39;buildSpec!context/animationModule&#39;</span>
+  <span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span
+    class="nx">WiredModule</span><span class="p">,</span> <span class="nx">animationModuleSpec</span><span
+    class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">AnimationModule</span> <span class="o">=</span> <span
+    class="kd">function</span><span class="p">(</span><span class="nx">userConfig</span><span class="p">)</span> <span
+    class="p">{</span>
+  <span class="c1">// Pass the raw Wire.js spec object to the parent</span>
+  <span class="c1">// WiredModule class</span>
+  <span class="nx">WiredModule</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span
+    class="k">this</span><span class="p">,</span> <span class="nx">animationModuleSpec</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// ...</span>
+
+  <span class="k">return</span> <span class="nx">AnimationModule</span><span class="p">;</span></code></pre>
+</div>
+
+<p>My AnimationModule is loading in the raw Wire.js spec, but any dependencies defined in the spec will still be
+  included in my build.</p>
+
+<h2 id="what-i-learned">What I learned</h2>
+
+<p>What did I learn from all of this?</p>
+
+<ol>
+  <li>There is no magical Almond.js synchronizing fairy</li>
+  <li>Async code is async code</li>
+  <li>Async code is a devious beast</li>
+</ol>
+
+<p>I’m still really happy with Wire.js. Even with the amount of time I’ve spent trying to grok how it all works, I feel
+  like it has saved me time in the long run, and made my code easier to read and more maintainable.</p>
+
+<p>======</p>
+
+<h3 id="my-first-blog-post">My first blog post!</h3>
+
+<p>Every day I learn something new at work, and I’m always geeking out over some new library/coding-pattern/bug. And
+  while my wife is very kind to humors my long technical rants, I feel a coding blog <em>might</em> be a more
+  appropriate outlet.</p>
+
+<p>I’d love to your feedback/complaints/ideas. Happy coding!</p>
+
+</article>
+
+</body>
+</html>

@@ -418,48 +418,22 @@ table {
 header {
   width: 700px;
   margin: 0 auto;
-  *zoom: 1;
+  padding-top: 80px;
 }
-/* line 38, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.1/stylesheets/compass/utilities/general/_clearfix.scss */
-header:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* line 7, ../scss/partials/_header.scss */
-header .identity {
-  padding-top: 50px;
-}
-/* line 11, ../scss/partials/_header.scss */
-header .identity .icon-avatar {
-  margin-top: -10px;
-  margin-right: 20px;
-  float: left;
-}
-/* line 17, ../scss/partials/_header.scss */
-header .identity .title {
+/* line 8, ../scss/partials/_header.scss */
+header .title {
   display: inline-block;
   font-family: Georgia, serif;
   color: rgba(0, 0, 0, 0.8);
-  font-size: 28px;
+  font-size: 44px;
+  line-height: 1.35;
 }
-/* line 24, ../scss/partials/_header.scss */
-header .identity .subtitle {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
+/* line 16, ../scss/partials/_header.scss */
+header .subtitle {
+  font-family: "Lucida Grande", "Lucida Sans", sans-serif;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 16px;
   font-style: italic;
-}
-/* line 34, ../scss/partials/_header.scss */
-header .site-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  padding: 20px 0 10px 140px;
-}
-/* line 40, ../scss/partials/_header.scss */
-header .site-nav ul li {
-  display: inline-block;
-  padding-right: 15px;
 }
 
 /* line 1, ../scss/partials/_icons.scss */
@@ -503,7 +477,7 @@ article {
 /* line 6, ../scss/partials/_article.scss */
 h1 {
   margin: 0;
-  padding-top: 40px;
+  padding-top: 80px;
   font-size: 36px;
   font-family: "Lucida Grande", "Lucida Sans", sans-serif;
   font-weight: bold;
@@ -519,6 +493,27 @@ p {
   color: rgba(0, 0, 0, 0.8);
   letter-spacing: 0.01rem;
   line-height: 1.5;
+}
+
+/* line 1, ../scss/partials/_stickman.scss */
+.stick-man {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: 700px;
+}
+/* line 7, ../scss/partials/_stickman.scss */
+.stick-man:after {
+  content: '';
+  background-image: url('../images/stick_man.png?1409856866');
+  background-size: auto 140px;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 140px;
+  position: absolute;
+  top: 0;
+  right: -80px;
+  opacity: 0.75;
 }
 
 /*# sourceMappingURL=post.css.map */

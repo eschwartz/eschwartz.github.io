@@ -1,0 +1,22 @@
+.stick-man {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: $article-width;
+
+  &:after {
+    content: '';
+    background-image: image-url('stick_man.png');
+    background-size: auto 140px;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 140px;
+
+    position: absolute;
+    top: 0;
+    right: -80px;
+
+    opacity: 0.75;
+  }
+
+}

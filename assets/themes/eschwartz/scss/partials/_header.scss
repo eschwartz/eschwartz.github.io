@@ -1,47 +1,22 @@
 header {
   width: $article-width;
+
   margin: 0 auto;
+  padding-top: 80px;
 
-  @include pie-clearfix;
 
-  .identity {
-
-    padding-top: 50px;
-
-    .icon-avatar {
-      margin-top: -10px;
-      margin-right: 20px;
-      float: left;
-    }
-
-    .title {
-      display: inline-block;
-      font-family: $font-title;
-      color: $text-color-title;
-      font-size: 28px;
-    }
-
-    .subtitle {
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      font-style: italic;
-    }
-
+  .title {
+    display: inline-block;
+    font-family: $font-title;
+    color: $text-color-title;
+    font-size: 44px;
+    line-height: 1.35;
   }
 
-  .site-nav {
-
-    ul {
-      list-style-type: none;
-      margin: 0; padding: 0;
-
-      padding: 20px 0 10px 140px;
-
-      li {
-        display: inline-block;
-
-        padding-right: 15px;
-      }
-    }
+  .subtitle {
+    font-family: $font-header;
+    color: $text-color-header;
+    font-size: 16px;
+    font-style: italic;
   }
 }

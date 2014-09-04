@@ -1,26 +1,61 @@
 article {
   margin: 0 auto;
-  width: 700px;
+  max-width: $article-width;
+  width: 95%;
+}
+
+h2, h2, h3, h4, h5 {
+  font-family: $font-header;
+  font-weight: bold;
+  color: $text-color-header;
 }
 
 h1 {
   margin: 0;
   padding-top: 80px;
+  padding-bottom: 20px;
 
   font-size: 36px;
-  font-family: $font-header;
-  font-weight: bold;
-  color: $text-color-header;
 
   letter-spacing: 0.01rem;
   line-height: 1.35;
 }
 
-p {
+h2 {
+  margin: 0; padding: 0;
+
+  padding-top: 40px;
+}
+
+h3 {
+  margin: 0; padding: 0;
+  padding-top: 20px;
+}
+
+p, blockquote, li {
   font-family: $font-article;
-  font-size: 22px;
+  font-size: 20px;
   color: $text-color-article;
 
   letter-spacing: 0.01rem;
   line-height: 1.5;
+}
+
+p {
+  margin: 0;
+  padding: 16px 0;
+}
+
+blockquote, blockquote p {
+  padding: 0;
+  font-style: italic;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.95);
+}
+
+code {
+  font-family: $font-code;
+  line-height: 1.5;
+  background: #f8f8f8;
 }

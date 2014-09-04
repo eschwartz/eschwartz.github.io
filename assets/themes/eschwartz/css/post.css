@@ -416,21 +416,21 @@ table {
 
 /* line 1, ../scss/partials/_header.scss */
 header {
-  width: 700px;
+  width: 760px;
   margin: 0 auto;
   padding-top: 80px;
 }
 /* line 8, ../scss/partials/_header.scss */
 header .title {
   display: inline-block;
-  font-family: Georgia, serif;
+  font-family: "Libre Baskerville", serif;
   color: rgba(0, 0, 0, 0.8);
   font-size: 44px;
   line-height: 1.35;
 }
 /* line 16, ../scss/partials/_header.scss */
 header .subtitle {
-  font-family: "Lucida Grande", "Lucida Sans", sans-serif;
+  font-family: Georgia, serif;
   color: rgba(0, 0, 0, 0.8);
   font-size: 16px;
   font-style: italic;
@@ -471,28 +471,70 @@ header .subtitle {
 /* line 1, ../scss/partials/_article.scss */
 article {
   margin: 0 auto;
-  width: 700px;
+  max-width: 760px;
+  width: 95%;
 }
 
-/* line 6, ../scss/partials/_article.scss */
+/* line 7, ../scss/partials/_article.scss */
+h2, h2, h3, h4, h5 {
+  font-family: "Lato", "Lucida Grande", "Lucida Sans", sans-serif;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* line 13, ../scss/partials/_article.scss */
 h1 {
   margin: 0;
   padding-top: 80px;
+  padding-bottom: 20px;
   font-size: 36px;
-  font-family: "Lucida Grande", "Lucida Sans", sans-serif;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.8);
   letter-spacing: 0.01rem;
   line-height: 1.35;
 }
 
-/* line 19, ../scss/partials/_article.scss */
-p {
+/* line 24, ../scss/partials/_article.scss */
+h2 {
+  margin: 0;
+  padding: 0;
+  padding-top: 40px;
+}
+
+/* line 30, ../scss/partials/_article.scss */
+h3 {
+  margin: 0;
+  padding: 0;
+  padding-top: 20px;
+}
+
+/* line 35, ../scss/partials/_article.scss */
+p, blockquote, li {
   font-family: Georgia, serif;
-  font-size: 22px;
+  font-size: 20px;
   color: rgba(0, 0, 0, 0.8);
   letter-spacing: 0.01rem;
   line-height: 1.5;
+}
+
+/* line 44, ../scss/partials/_article.scss */
+p {
+  margin: 0;
+  padding: 16px 0;
+}
+
+/* line 49, ../scss/partials/_article.scss */
+blockquote, blockquote p {
+  padding: 0;
+  font-style: italic;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.95);
+}
+
+/* line 57, ../scss/partials/_article.scss */
+code {
+  font-family: monospace, serif;
+  line-height: 1.5;
+  background: #f8f8f8;
 }
 
 /* line 1, ../scss/partials/_stickman.scss */
@@ -500,7 +542,7 @@ p {
   display: block;
   position: relative;
   margin: 0 auto;
-  width: 700px;
+  width: 760px;
 }
 /* line 7, ../scss/partials/_stickman.scss */
 .stick-man:after {
@@ -515,5 +557,424 @@ p {
   right: -80px;
   opacity: 0.75;
 }
+
+/*
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org>
+*/
+/* line 29, ../scss/partials/_syntax.scss */
+.highlight .hll {
+  background-color: #ffffcc;
+}
+
+/* line 30, ../scss/partials/_syntax.scss */
+.highlight {
+  background: #f8f8f8;
+}
+
+/* line 31, ../scss/partials/_syntax.scss */
+.highlight .c {
+  color: #408080;
+  font-style: italic;
+}
+
+/* Comment */
+/* line 32, ../scss/partials/_syntax.scss */
+.highlight .err {
+  border: 1px solid #FF0000;
+}
+
+/* Error */
+/* line 33, ../scss/partials/_syntax.scss */
+.highlight .k {
+  color: #008000;
+  font-weight: bold;
+}
+
+/* Keyword */
+/* line 34, ../scss/partials/_syntax.scss */
+.highlight .o {
+  color: #666666;
+}
+
+/* Operator */
+/* line 35, ../scss/partials/_syntax.scss */
+.highlight .cm {
+  color: #408080;
+  font-style: italic;
+}
+
+/* Comment.Multiline */
+/* line 36, ../scss/partials/_syntax.scss */
+.highlight .cp {
+  color: #BC7A00;
+}
+
+/* Comment.Preproc */
+/* line 37, ../scss/partials/_syntax.scss */
+.highlight .c1 {
+  color: #408080;
+  font-style: italic;
+}
+
+/* Comment.Single */
+/* line 38, ../scss/partials/_syntax.scss */
+.highlight .cs {
+  color: #408080;
+  font-style: italic;
+}
+
+/* Comment.Special */
+/* line 39, ../scss/partials/_syntax.scss */
+.highlight .gd {
+  color: #A00000;
+}
+
+/* Generic.Deleted */
+/* line 40, ../scss/partials/_syntax.scss */
+.highlight .ge {
+  font-style: italic;
+}
+
+/* Generic.Emph */
+/* line 41, ../scss/partials/_syntax.scss */
+.highlight .gr {
+  color: #FF0000;
+}
+
+/* Generic.Error */
+/* line 42, ../scss/partials/_syntax.scss */
+.highlight .gh {
+  color: #000080;
+  font-weight: bold;
+}
+
+/* Generic.Heading */
+/* line 43, ../scss/partials/_syntax.scss */
+.highlight .gi {
+  color: #00A000;
+}
+
+/* Generic.Inserted */
+/* line 44, ../scss/partials/_syntax.scss */
+.highlight .go {
+  color: #808080;
+}
+
+/* Generic.Output */
+/* line 45, ../scss/partials/_syntax.scss */
+.highlight .gp {
+  color: #000080;
+  font-weight: bold;
+}
+
+/* Generic.Prompt */
+/* line 46, ../scss/partials/_syntax.scss */
+.highlight .gs {
+  font-weight: bold;
+}
+
+/* Generic.Strong */
+/* line 47, ../scss/partials/_syntax.scss */
+.highlight .gu {
+  color: #800080;
+  font-weight: bold;
+}
+
+/* Generic.Subheading */
+/* line 48, ../scss/partials/_syntax.scss */
+.highlight .gt {
+  color: #0040D0;
+}
+
+/* Generic.Traceback */
+/* line 49, ../scss/partials/_syntax.scss */
+.highlight .kc {
+  color: #008000;
+  font-weight: bold;
+}
+
+/* Keyword.Constant */
+/* line 50, ../scss/partials/_syntax.scss */
+.highlight .kd {
+  color: #008000;
+  font-weight: bold;
+}
+
+/* Keyword.Declaration */
+/* line 51, ../scss/partials/_syntax.scss */
+.highlight .kn {
+  color: #008000;
+  font-weight: bold;
+}
+
+/* Keyword.Namespace */
+/* line 52, ../scss/partials/_syntax.scss */
+.highlight .kp {
+  color: #008000;
+}
+
+/* Keyword.Pseudo */
+/* line 53, ../scss/partials/_syntax.scss */
+.highlight .kr {
+  color: #008000;
+  font-weight: bold;
+}
+
+/* Keyword.Reserved */
+/* line 54, ../scss/partials/_syntax.scss */
+.highlight .kt {
+  color: #B00040;
+}
+
+/* Keyword.Type */
+/* line 55, ../scss/partials/_syntax.scss */
+.highlight .m {
+  color: #666666;
+}
+
+/* Literal.Number */
+/* line 56, ../scss/partials/_syntax.scss */
+.highlight .s {
+  color: #BA2121;
+}
+
+/* Literal.String */
+/* line 57, ../scss/partials/_syntax.scss */
+.highlight .na {
+  color: #7D9029;
+}
+
+/* Name.Attribute */
+/* line 58, ../scss/partials/_syntax.scss */
+.highlight .nb {
+  color: #008000;
+}
+
+/* Name.Builtin */
+/* line 59, ../scss/partials/_syntax.scss */
+.highlight .nc {
+  color: #0000FF;
+  font-weight: bold;
+}
+
+/* Name.Class */
+/* line 60, ../scss/partials/_syntax.scss */
+.highlight .no {
+  color: #880000;
+}
+
+/* Name.Constant */
+/* line 61, ../scss/partials/_syntax.scss */
+.highlight .nd {
+  color: #AA22FF;
+}
+
+/* Name.Decorator */
+/* line 62, ../scss/partials/_syntax.scss */
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+
+/* Name.Entity */
+/* line 63, ../scss/partials/_syntax.scss */
+.highlight .ne {
+  color: #D2413A;
+  font-weight: bold;
+}
+
+/* Name.Exception */
+/* line 64, ../scss/partials/_syntax.scss */
+.highlight .nf {
+  color: #0000FF;
+}
+
+/* Name.Function */
+/* line 65, ../scss/partials/_syntax.scss */
+.highlight .nl {
+  color: #A0A000;
+}
+
+/* Name.Label */
+/* line 66, ../scss/partials/_syntax.scss */
+.highlight .nn {
+  color: #0000FF;
+  font-weight: bold;
+}
+
+/* Name.Namespace */
+/* line 67, ../scss/partials/_syntax.scss */
+.highlight .nt {
+  color: #008000;
+  font-weight: bold;
+}
+
+/* Name.Tag */
+/* line 68, ../scss/partials/_syntax.scss */
+.highlight .nv {
+  color: #19177C;
+}
+
+/* Name.Variable */
+/* line 69, ../scss/partials/_syntax.scss */
+.highlight .ow {
+  color: #AA22FF;
+  font-weight: bold;
+}
+
+/* Operator.Word */
+/* line 70, ../scss/partials/_syntax.scss */
+.highlight .w {
+  color: #bbbbbb;
+}
+
+/* Text.Whitespace */
+/* line 71, ../scss/partials/_syntax.scss */
+.highlight .mf {
+  color: #666666;
+}
+
+/* Literal.Number.Float */
+/* line 72, ../scss/partials/_syntax.scss */
+.highlight .mh {
+  color: #666666;
+}
+
+/* Literal.Number.Hex */
+/* line 73, ../scss/partials/_syntax.scss */
+.highlight .mi {
+  color: #666666;
+}
+
+/* Literal.Number.Integer */
+/* line 74, ../scss/partials/_syntax.scss */
+.highlight .mo {
+  color: #666666;
+}
+
+/* Literal.Number.Oct */
+/* line 75, ../scss/partials/_syntax.scss */
+.highlight .sb {
+  color: #BA2121;
+}
+
+/* Literal.String.Backtick */
+/* line 76, ../scss/partials/_syntax.scss */
+.highlight .sc {
+  color: #BA2121;
+}
+
+/* Literal.String.Char */
+/* line 77, ../scss/partials/_syntax.scss */
+.highlight .sd {
+  color: #BA2121;
+  font-style: italic;
+}
+
+/* Literal.String.Doc */
+/* line 78, ../scss/partials/_syntax.scss */
+.highlight .s2 {
+  color: #BA2121;
+}
+
+/* Literal.String.Double */
+/* line 79, ../scss/partials/_syntax.scss */
+.highlight .se {
+  color: #BB6622;
+  font-weight: bold;
+}
+
+/* Literal.String.Escape */
+/* line 80, ../scss/partials/_syntax.scss */
+.highlight .sh {
+  color: #BA2121;
+}
+
+/* Literal.String.Heredoc */
+/* line 81, ../scss/partials/_syntax.scss */
+.highlight .si {
+  color: #BB6688;
+  font-weight: bold;
+}
+
+/* Literal.String.Interpol */
+/* line 82, ../scss/partials/_syntax.scss */
+.highlight .sx {
+  color: #008000;
+}
+
+/* Literal.String.Other */
+/* line 83, ../scss/partials/_syntax.scss */
+.highlight .sr {
+  color: #BB6688;
+}
+
+/* Literal.String.Regex */
+/* line 84, ../scss/partials/_syntax.scss */
+.highlight .s1 {
+  color: #BA2121;
+}
+
+/* Literal.String.Single */
+/* line 85, ../scss/partials/_syntax.scss */
+.highlight .ss {
+  color: #19177C;
+}
+
+/* Literal.String.Symbol */
+/* line 86, ../scss/partials/_syntax.scss */
+.highlight .bp {
+  color: #008000;
+}
+
+/* Name.Builtin.Pseudo */
+/* line 87, ../scss/partials/_syntax.scss */
+.highlight .vc {
+  color: #19177C;
+}
+
+/* Name.Variable.Class */
+/* line 88, ../scss/partials/_syntax.scss */
+.highlight .vg {
+  color: #19177C;
+}
+
+/* Name.Variable.Global */
+/* line 89, ../scss/partials/_syntax.scss */
+.highlight .vi {
+  color: #19177C;
+}
+
+/* Name.Variable.Instance */
+/* line 90, ../scss/partials/_syntax.scss */
+.highlight .il {
+  color: #666666;
+}
+
+/* Literal.Number.Integer.Long */
 
 /*# sourceMappingURL=post.css.map */

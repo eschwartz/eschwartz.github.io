@@ -1,11 +1,12 @@
 @import "compass";
 @import "compass/utilities/general";
 
-$article-width: 700px;
+$article-width: 760px;
 
-$font-title: Georgia, serif;
-$font-header: 'Lucida Grande', 'Lucida Sans', sans-serif;
+$font-title: 'Libre Baskerville', serif;
+$font-header: 'Lato', 'Lucida Grande', 'Lucida Sans', sans-serif;
 $font-article: Georgia, serif;
+$font-code: monospace, serif;
 
 $text-color-title: rgba(0, 0, 0, 0.8);
 $text-color-header: rgba(0, 0, 0, 0.8);
@@ -16,3 +17,4 @@ $text-color-article: rgba(0, 0, 0, 0.8);
 @import "partials/icons";
 @import "partials/article";
 @import "partials/stickman";
+@import "partials/syntax";

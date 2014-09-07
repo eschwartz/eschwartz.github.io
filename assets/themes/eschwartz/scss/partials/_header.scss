@@ -1,8 +1,9 @@
-header {
-  width: $article-width;
+@import "../includes/container-width";
 
-  margin: 0 auto;
-  padding-top: 80px;
+header {
+  @include container-width;
+
+  padding-top: 60px;
 
 
   .title {
@@ -11,6 +12,11 @@ header {
     color: $text-color-title;
     font-size: 44px;
     line-height: 1.35;
+
+    a, a:hover {
+      text-decoration: none;
+      color: $text-color-header;
+    }
   }
 
   .subtitle {

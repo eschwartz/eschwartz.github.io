@@ -3,7 +3,7 @@
 
 $article-width: 760px;
 
-$font-title: 'Libre Baskerville', serif;
+$font-title: Georgia, serif;
 $font-header: 'Lato', 'Lucida Grande', 'Lucida Sans', sans-serif;
 $font-article: Georgia, serif;
 $font-code: monospace, serif;
@@ -18,3 +18,4 @@ $text-color-article: rgba(0, 0, 0, 0.8);
 @import "partials/article";
 @import "partials/stickman";
 @import "partials/syntax";
+@import "partials/disqus";

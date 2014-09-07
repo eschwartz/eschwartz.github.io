@@ -1,0 +1,6 @@
+@mixin container-width {
+  width: 95%;
+  max-width: $article-width;
+  margin-left: auto;
+  margin-right: auto;
+}

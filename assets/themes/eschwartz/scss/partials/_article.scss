@@ -1,7 +1,7 @@
+@import "../includes/container-width";
+
 article {
-  margin: 0 auto;
-  max-width: $article-width;
-  width: 95%;
+  @include container-width;
 }
 
 h2, h2, h3, h4, h5 {
@@ -44,6 +44,14 @@ p, blockquote, li {
 p {
   margin: 0;
   padding: 16px 0;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 blockquote, blockquote p {

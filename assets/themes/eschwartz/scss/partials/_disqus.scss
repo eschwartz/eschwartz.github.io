@@ -1,0 +1,6 @@
+@import "../includes/container-width";
+
+#disqus_thread {
+  @include container-width;
+  margin-top: 100px;
+}

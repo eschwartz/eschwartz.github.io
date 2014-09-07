@@ -2,8 +2,9 @@
 layout: post
 tags : [javascript, Wire.js, Almond.js, RequireJS, IoC, dependency injection]
 title: "Wire.js builds using the Almond.js AMD shim"
+excerpt: "I have been using Wire.js while building a weather maps application for my employer"
 ---
-I have been using [Wire.js](https://github.com/cujojs/wire) while building a weather maps application for my [employer](http://www.hamweather.com/), dubbed *Aeris Interactive*. If you're not familiar with Wire.js, here's a short summary from their github page:
+I have been using [Wire.js](https://github.com/cujojs/wire) while building a weather maps application for my [employer](http://www.hamweather.com/), dubbed *Aeris Interactive*.{{ excerpt_separator }} If you're not familiar with Wire.js, here's a short summary from their github page:
 
 >Wire is an Inversion of Control Container for Javascript apps, and acts as the Application Composition layer for cujoJS.
 

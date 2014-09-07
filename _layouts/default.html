@@ -1,6 +1,30 @@
 ---
-theme :
-  name : tom
+theme:
+  name: eschwartz
 ---
 {% include JB/setup %}
-{% include themes/tom/default.html %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{{ site.title }}- Web Developer</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:700|Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ ASSET_PATH }}/css/{{ page.stylesheet }}.css"/>
+</head>
+<body>
+
+<div class="stick-man"></div>
+
+
+<header>
+  <div class="title"><a href="/">{{ site.title }}</a></div>
+  <div class="subtitle">{{ site.tagline }}.</div>
+</header>
+
+
+{{ content }}
+
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+@import "../includes/clean-list";
+@import "../includes/container-width";
+@import "compass";
+
+.post-list {
+  @extend %clean-list;
+  @include pie-clearfix;
+
+  @include container-width;
+
+  margin-top: 60px;
+
+  article {
+    width: 100%;
+  }
+
+  li {
+    float: left;
+    width: 45%;
+    height: 175px;
+    margin-right: 10%;
+    margin-bottom: 20px;
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+
+  h1 {
+    font-family: $font-header;
+    font-size: 22px;
+
+    padding-top: 20px;
+    padding-bottom: 5px;
+
+    a {
+      text-decoration: none;
+      color: $text-color-header;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  p {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+}

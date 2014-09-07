@@ -1003,3 +1003,70 @@ For more information, please refer to <http://unlicense.org>
   margin-right: auto;
   margin-top: 100px;
 }
+
+/* line 1, ../scss/includes/_clean-list.scss */
+.post-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+/* line 6, ../scss/includes/_clean-list.scss */
+.post-list li {
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* line 5, ../scss/partials/_post-list.scss */
+.post-list {
+  *zoom: 1;
+  width: 95%;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+}
+/* line 38, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
+.post-list:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 13, ../scss/partials/_post-list.scss */
+.post-list article {
+  width: 100%;
+}
+/* line 17, ../scss/partials/_post-list.scss */
+.post-list li {
+  float: left;
+  width: 45%;
+  height: 175px;
+  margin-right: 10%;
+  margin-bottom: 20px;
+}
+/* line 24, ../scss/partials/_post-list.scss */
+.post-list li:nth-child(2n) {
+  margin-right: 0;
+}
+/* line 29, ../scss/partials/_post-list.scss */
+.post-list h1 {
+  font-family: "Lato", "Lucida Grande", "Lucida Sans", sans-serif;
+  font-size: 22px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+/* line 36, ../scss/partials/_post-list.scss */
+.post-list h1 a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.8);
+}
+/* line 40, ../scss/partials/_post-list.scss */
+.post-list h1 a:hover {
+  text-decoration: underline;
+}
+/* line 46, ../scss/partials/_post-list.scss */
+.post-list p {
+  font-size: 16px;
+  padding: 8px 0;
+}

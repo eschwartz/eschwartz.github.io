@@ -576,7 +576,104 @@ code {
   right: -80px;
   opacity: 0.75;
 }
+/* line 22, ../scss/partials/_stickman.scss */
+.stick-man:hover {
+  cursor: pointer;
+}
+/* line 24, ../scss/partials/_stickman.scss */
+.stick-man:hover:after {
+  animation: animationFrames linear 0.6s;
+  animation-iteration-count: 1;
+  -webkit-animation: animationFrames linear 0.4s;
+  -webkit-animation-iteration-count: 1;
+  -moz-animation: animationFrames linear 0.4s;
+  -moz-animation-iteration-count: 1;
+  -o-animation: animationFrames linear 0.4s;
+  -o-animation-iteration-count: 1;
+  -ms-animation: animationFrames linear 0.4s;
+  -ms-animation-iteration-count: 1;
+}
 
+@keyframes animationFrames {
+  /* line 41, ../scss/partials/_stickman.scss */
+  0% {
+    transform: rotate(0deg) scaleX(1) scaleY(1);
+  }
+
+  /* line 44, ../scss/partials/_stickman.scss */
+  51% {
+    transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
+  }
+
+  /* line 47, ../scss/partials/_stickman.scss */
+  100% {
+    transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
+  }
+}
+@-moz-keyframes animationFrames {
+  /* line 53, ../scss/partials/_stickman.scss */
+  0% {
+    -moz-transform: rotate(0deg) scaleX(1) scaleY(1);
+  }
+
+  /* line 56, ../scss/partials/_stickman.scss */
+  51% {
+    -moz-transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
+  }
+
+  /* line 59, ../scss/partials/_stickman.scss */
+  100% {
+    -moz-transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
+  }
+}
+@-webkit-keyframes animationFrames {
+  /* line 65, ../scss/partials/_stickman.scss */
+  0% {
+    -webkit-transform: rotate(0deg) scaleX(1) scaleY(1);
+  }
+
+  /* line 68, ../scss/partials/_stickman.scss */
+  51% {
+    -webkit-transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
+  }
+
+  /* line 71, ../scss/partials/_stickman.scss */
+  100% {
+    -webkit-transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
+  }
+}
+@-o-keyframes animationFrames {
+  /* line 77, ../scss/partials/_stickman.scss */
+  0% {
+    -o-transform: rotate(0deg) scaleX(1) scaleY(1);
+  }
+
+  /* line 80, ../scss/partials/_stickman.scss */
+  51% {
+    -o-transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
+  }
+
+  /* line 83, ../scss/partials/_stickman.scss */
+  100% {
+    -o-transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
+  }
+}
+@-ms-keyframes animationFrames {
+  /* line 89, ../scss/partials/_stickman.scss */
+  0% {
+    -ms-transform: rotate(0deg) scaleX(1) scaleY(1);
+  }
+
+  /* line 92, ../scss/partials/_stickman.scss */
+  51% {
+    -ms-transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
+  }
+
+  /* line 95, ../scss/partials/_stickman.scss */
+  100% {
+    -ms-transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
+  }
+}
 /*
 
 This is free and unencumbered software released into the public domain.

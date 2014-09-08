@@ -1,0 +1,32 @@
+@import "../includes/container-width";
+@import "../includes/clean-list";
+
+nav {
+  @include container-width;
+  padding: 10px 0;
+
+  ul {
+    @extend %clean-list;
+
+    li {
+      display: inline-block;
+      font-family: $font-header;
+      font-weight: bold;
+      font-size: 14px;
+      color: $text-color-header;
+
+      margin-right: 26px;
+    }
+  }
+
+
+  a {
+    color: $text-color-header;
+    text-decoration: none;
+
+    &:hover {
+      color: $text-color-header;
+      text-decoration: underline;
+    }
+  }
+}

@@ -6,8 +6,6 @@
   @extend %clean-list;
   @include pie-clearfix;
 
-  @include container-width;
-
   margin-top: 60px;
 
   article {

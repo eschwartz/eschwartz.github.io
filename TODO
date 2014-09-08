@@ -20,3 +20,8 @@ Parking lot
 - Header nav changes on scroll (~Medium)
 - Fancy stick man
 - 404 page
+
+- Split out styles int
+  - site.css (all pages)
+  - post.css
+  - post-list.css

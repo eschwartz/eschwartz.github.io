@@ -414,6 +414,48 @@ table {
   border-spacing: 0;
 }
 
+/* line 1, ../scss/includes/_clean-list.scss */
+nav ul, .post-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+/* line 6, ../scss/includes/_clean-list.scss */
+nav ul li, .post-list li {
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* line 4, ../scss/partials/_nav.scss */
+nav {
+  width: 95%;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0;
+}
+/* line 11, ../scss/partials/_nav.scss */
+nav ul li {
+  display: inline-block;
+  font-family: "Lato", "Lucida Grande", "Lucida Sans", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  margin-right: 26px;
+}
+/* line 23, ../scss/partials/_nav.scss */
+nav a {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+}
+/* line 27, ../scss/partials/_nav.scss */
+nav a:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: underline;
+}
+
 /* line 3, ../scss/partials/_header.scss */
 header {
   width: 95%;
@@ -484,13 +526,19 @@ article {
 }
 
 /* line 7, ../scss/partials/_article.scss */
+.date-written {
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* line 12, ../scss/partials/_article.scss */
 h2, h2, h3, h4, h5 {
   font-family: "Lato", "Lucida Grande", "Lucida Sans", sans-serif;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.8);
 }
 
-/* line 13, ../scss/partials/_article.scss */
+/* line 18, ../scss/partials/_article.scss */
 h1 {
   margin: 0;
   padding-top: 80px;
@@ -500,22 +548,22 @@ h1 {
   line-height: 1.35;
 }
 
-/* line 24, ../scss/partials/_article.scss */
+/* line 29, ../scss/partials/_article.scss */
 h2 {
   margin: 0;
   padding: 0;
   padding-top: 40px;
 }
 
-/* line 30, ../scss/partials/_article.scss */
+/* line 35, ../scss/partials/_article.scss */
 h3 {
   margin: 0;
   padding: 0;
   padding-top: 20px;
 }
 
-/* line 35, ../scss/partials/_article.scss */
-p, blockquote, li {
+/* line 40, ../scss/partials/_article.scss */
+p, blockquote, li, span {
   font-family: Georgia, serif;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.8);
@@ -523,22 +571,22 @@ p, blockquote, li {
   line-height: 1.5;
 }
 
-/* line 44, ../scss/partials/_article.scss */
+/* line 49, ../scss/partials/_article.scss */
 p {
   margin: 0;
   padding: 16px 0;
 }
 
-/* line 49, ../scss/partials/_article.scss */
+/* line 55, ../scss/partials/_article.scss */
 a {
   text-decoration: none;
 }
-/* line 52, ../scss/partials/_article.scss */
+/* line 58, ../scss/partials/_article.scss */
 a:hover {
   text-decoration: underline;
 }
 
-/* line 57, ../scss/partials/_article.scss */
+/* line 63, ../scss/partials/_article.scss */
 blockquote, blockquote p {
   padding: 0;
   font-style: italic;
@@ -547,7 +595,7 @@ blockquote, blockquote p {
   color: rgba(0, 0, 0, 0.95);
 }
 
-/* line 65, ../scss/partials/_article.scss */
+/* line 71, ../scss/partials/_article.scss */
 code {
   font-family: monospace, serif;
   line-height: 1.5;
@@ -567,10 +615,10 @@ code {
 .stick-man:after {
   content: '';
   background-image: url('../images/stick_man.png?1409880645');
-  background-size: auto 138px;
+  background-size: auto 179px;
   background-repeat: no-repeat;
-  width: 100px;
-  height: 138px;
+  width: 92px;
+  height: 179px;
   position: absolute;
   top: 0;
   right: -80px;
@@ -1101,27 +1149,17 @@ For more information, please refer to <http://unlicense.org>
   margin-top: 100px;
 }
 
-/* line 1, ../scss/includes/_clean-list.scss */
-.post-list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-/* line 6, ../scss/includes/_clean-list.scss */
-.post-list li {
-  display: block;
-  padding: 0;
-  margin: 0;
-  list-style: none;
+/* line 25, ../scss/post.scss */
+.page {
+  width: 95%;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* line 5, ../scss/partials/_post-list.scss */
 .post-list {
   *zoom: 1;
-  width: 95%;
-  max-width: 760px;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: 60px;
 }
 /* line 38, ../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.0.alpha.19/stylesheets/compass/utilities/general/_clearfix.scss */
@@ -1130,11 +1168,11 @@ For more information, please refer to <http://unlicense.org>
   display: table;
   clear: both;
 }
-/* line 13, ../scss/partials/_post-list.scss */
+/* line 11, ../scss/partials/_post-list.scss */
 .post-list article {
   width: 100%;
 }
-/* line 17, ../scss/partials/_post-list.scss */
+/* line 15, ../scss/partials/_post-list.scss */
 .post-list li {
   float: left;
   width: 45%;
@@ -1142,27 +1180,27 @@ For more information, please refer to <http://unlicense.org>
   margin-right: 10%;
   margin-bottom: 20px;
 }
-/* line 24, ../scss/partials/_post-list.scss */
+/* line 22, ../scss/partials/_post-list.scss */
 .post-list li:nth-child(2n) {
   margin-right: 0;
 }
-/* line 29, ../scss/partials/_post-list.scss */
+/* line 27, ../scss/partials/_post-list.scss */
 .post-list h1 {
   font-family: "Lato", "Lucida Grande", "Lucida Sans", sans-serif;
   font-size: 22px;
   padding-top: 20px;
   padding-bottom: 5px;
 }
-/* line 36, ../scss/partials/_post-list.scss */
+/* line 34, ../scss/partials/_post-list.scss */
 .post-list h1 a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.8);
 }
-/* line 40, ../scss/partials/_post-list.scss */
+/* line 38, ../scss/partials/_post-list.scss */
 .post-list h1 a:hover {
   text-decoration: underline;
 }
-/* line 46, ../scss/partials/_post-list.scss */
+/* line 44, ../scss/partials/_post-list.scss */
 .post-list p {
   font-size: 16px;
   padding: 8px 0;

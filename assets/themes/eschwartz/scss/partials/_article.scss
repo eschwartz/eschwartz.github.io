@@ -4,6 +4,11 @@ article {
   @include container-width;
 }
 
+.date-written {
+  font-size: 16px;
+  font-style: italic;
+}
+
 h2, h2, h3, h4, h5 {
   font-family: $font-header;
   font-weight: bold;
@@ -32,7 +37,7 @@ h3 {
   padding-top: 20px;
 }
 
-p, blockquote, li {
+p, blockquote, li, span {
   font-family: $font-article;
   font-size: 20px;
   color: $text-color-article;
@@ -45,6 +50,7 @@ p {
   margin: 0;
   padding: 16px 0;
 }
+
 
 a {
   text-decoration: none;

@@ -2,15 +2,13 @@
 layout: post
 tags : [javascript, Wire.js, Almond.js, RequireJS, IoC, dependency injection]
 title: "Wire.js builds using the Almond.js AMD shim"
-excerpt: "I have been using Wire.js while building a weather maps application for my employer"
 ---
-I have been using [Wire.js](https://github.com/cujojs/wire) while building a weather maps application for my [employer](http://www.hamweather.com/), dubbed *Aeris Interactive*.{{ excerpt_separator }} If you're not familiar with Wire.js, here's a short summary from their github page:
+I tend to geek out on things like dependency injection, so I've really enjoyed using [Wire.js](https://github.com/cujojs/wire). If you're not familiar with Wire.js, it's basically a dependency injection library for javascript.
 
->Wire is an Inversion of Control Container for Javascript apps, and acts as the Application Composition layer for cujoJS.
 
->Wire provides architectural plumbing that allows you to create and manage application components, and to connect those components together in loosely coupled and non-invasive ways. Consequently, your components will be more modular, easier to unit test and refactor, and your application will be easier to evolve and maintain.
+I'm using Wire.js on a weather mapping application called [Aeris Interactive](http://wx.hamweather.com/local/us/mn/minneapolis/interactive.html), which I am building my for my employer, [HAMWeather](http://www.hamweather.com/). The heavy lifting for Aeris Interactive is all done by an open source library I built for HAMWeather called [Aeris.js](https://github.com/hamweather/aerisjs). This means that most of the work I'm doing on Aeris Interactive is bootstrapping, configuration, and integration.
 
-In other words, Wire.js does dependency injection for javascript. So I can do something like this:
+Wire.js takes a lot of the grunt-work out of bootstrapping, and keeps all of my configuration where it belongs: in configuration files. So I can do something like this:
 
 {% highlight javascript %}
 // context/app.js
@@ -27,16 +25,22 @@ define({
 
 // app.js
 define(['wire!context/app'], function(ctx) {
-  // ctx.myView is an instance of 'views/baseView',
-  // created with the 'templates/myTemplate.html.hbs' template
+  var app = {
+    start: function($el) {
+      ctx.myView.render().
+        appendTo($el);
+    }
+  }
+
+  return app;
 });
 {% endhighlight %}
 
-Pretty cool, eh? I geek out on this kind of thing, so I've really enjoyed using Wire.js. Our code base is quite large, and includes many different modularized components -- it's really nice to be able to configure all of these components in one place.
+Pretty cool, eh? I geek out on this kind of thing, so I've really enjoyed using Wire.js. Our code base is quite large, and includes many different modularized components. Wire.js provides much needed structure, and helps me keep my sanity while I'm working on this project.
 
 ## Using Almond.js
 
-One of the requirements for the library I'm creating is to be able to access components within the global namespace. This means users of the library won't need to mess around with RequireJS.
+One of the requirements for the library I'm creating is to be able to access components within the global namespace. The goal is to make the library as simple to use as possible.
 
 {% highlight html %}
 <script src="builtLib.js"></script>
@@ -45,32 +49,35 @@ One of the requirements for the library I'm creating is to be able to access com
 </script>
 {% endhighlight %}
 
-Generally I would use the [Almond.js](https://github.com/jrburke/almond) AMD shim to accomplish this. I just include Almond.js in my optimized build, then wrap it like so:
+Generally I would use the [Almond.js](https://github.com/jrburke/almond) AMD shim to accomplish this. Almond replaces RequireJS's asynchrnous `require` method with a synchronous version.
 
 {% highlight javascript %}
-(function(root) {
-  // Almond.js included here
-  // My library included here
-  root.myLib = {
-    TheAppImWorkingOn: require('app')
-  }
-}(window));
+
+// Almond.js included here...
+
+// My library included here...
+
+// Requie
+window.myLib = {
+  TheAppImWorkingOn: require('app')
+}
+
 {% endhighlight %}
 
 This gives me the best of both worlds: I have a repo with AMD modules for developers using RequireJS, and a traditional "global vars" library for users who don't want to mess with the whole AMD thing.
 
 ## Wire.js: why won't you play nicely with Almond.js?
 
-I had been using this Almond.js setup for my [Aeris.js](https://github.com/hamweather/aerisjs) without problem. But then I tried to use Almond.js together on a project with Wire.js --- not happening. Almond.js failed to require the module, and I had no access to the global library objects.
+I use Almond.js as part of the build process for the open source [Aeris.js](https://github.com/hamweather/aerisjs) library without problem. But when I tried to use Almond.js together on a project with Wire.js, and everything collapses. Almond.js failed to require the module, and I had no access to the global library objects.
 
 This was really a bummer. Of course, I waited until large portions of the library were written until attempting a build. Ever try telling your boss, "yes, all of my tasks are done -- I just can't deliver anything this sprint"?
 
-I couldn't for the life of me figure out what was going on. At this point, Almond.js was some kind of magical synchronizing fairy in my mind, and I had already spent too many nights crying over RequireJS build configurations. I was done. I threw in an ugly work-around using the full RequireJS library in builds, and brushed it off my shoulders.
+I couldn't for the life of me figure out what was going on. To be honest, I did'n't completely grok the libraries I was working with: Almond.js was some kind of magical synchronizing fairy in my mind, and I had already spent too many nights crying over RequireJS build configurations. I was done. I ended up including the full RequireJS library in my builds, using an ugly work-around to hide the asynchronous logic from the end-user.
 
 
 ## The culprit: the wire! AMD plugin
 
-After a few months of living with an embarrassing hack, I woke one morning and realized my problem: the `wire!` AMD plugin. Let's look back at how we used this:
+After a few months of living with an embarrassing hack, I woke up one morning and realized my problem: the `wire!` AMD plugin. Let's look back at how we used this:
 
  {% highlight javascript %}
  define(['wire!context/myApp.js'], function(ctx) {
@@ -78,12 +85,13 @@ After a few months of living with an embarrassing hack, I woke one morning and r
  });
  {% endhighlight %}
 
-So what is this doing behind the scenes? If you say "magic", you're only half write. Here's what the `wire!` plugin code looks like (*after some simplifications*):
+So what is this doing behind the scenes? If you say "magic", you're only half right. Here's what the `wire!` plugin code looks like (*after some simplifications*):
 
 {% highlight javascript %}
 // wire.js
 define(function() {
-  // ...
+  // See http://requirejs.org/docs/plugins.html#api
+  // for more on the AMD plugin API
   wire.load = function(amdModulePath, require, onload) {
     // Wire up the context
     wire(amdModulePath).
@@ -94,7 +102,7 @@ define(function() {
 });
 {% endhighlight %}
 
-Pretty straightforward, eh? The key thing to note here, is that `wire()` is asynchronous (it returns a `Promise`). Which means that our `wire!` AMD loader plugin is necessarily asynchronous. Which means that any module which uses the `wire!` plugin is necessarily asynchronous. And there ain't nothing no magical synchronizing Almond.js fairy can do about it.
+Pretty straightforward, eh? The key thing to note here, is that `wire.load` is asynchronous (it returns a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)). Which means that our `wire!` AMD loader plugin is necessarily asynchronous. Which means that any module which uses the `wire!` plugin is necessarily asynchronous. And there ain't *nothing* no magical-synchronizing-Almond.js-fairy can do about it.
 
 
 ## The solution: stop using `wire!` (sort of)
@@ -110,12 +118,12 @@ In short, here's what I came up with:
 
 ### 1. How/where/when do I wire my Wire.js specs?
 
-Getting rid of the `wire!` plugin means that I'll have to wire my specs pragmatically. This means introducing some asynchronous behavior to my application initialization.
+Getting rid of the `wire!` plugin means that I'll have to wire my specs programmatically. This means introducing some asynchronous behavior to my application initialization.
 
-To handle the asynchronous initialization work, I created a WiredModule. It wires the context spec, and provides several event-hooks for subclasses to add their own initialization logic.
+To handle the asynchronous initialization work, I created a `WiredModule` base class. It wires a context spec, and provides several event-hooks for subclasses to add their own initialization logic.
 
 {% highlight javascript %}
-define(['wire'], function(wire) {
+define(['wire', 'underscore', 'backbone'], function(wire, _, Backbone) {
   var WiredModule = function(moduleSpec) {
     this.moduleSpec_ = moduleSpec;
   };
@@ -124,6 +132,7 @@ define(['wire'], function(wire) {
 
   WiredModule.prototype.initialize = function() {
     // Use Wire.js programmatically
+    // See https://github.com/cujojs/wire/blob/master/docs/wire.md#amd
     wire(this.moduleSpec).
       then(function(wiredCtx) {
         // Module subclasses can hook into `wire:after`
@@ -148,10 +157,10 @@ define({
   animationTimelineController: {
     create: {
       module: 'controllers/timelinecontroller',
-      args: [
+      args: [{
         min: Date.now() - 1000 * 60 * 60,
         max: Date.now()
-      ]
+      }]
     }
   }
 });
@@ -182,7 +191,7 @@ define([
 });
 {% endhighlight %}
 
-The asynchronous initialization code adds a little bit of complexity to our modules, but by using events, we can keep the intent of the code clear.
+The asynchronous initialization code adds a little bit of complexity to our modules. But by using well-named events, we can easily handle the Module "lifecycle", while keeping the intent of our code clear.
 
 ### 2. How does `r.js` know to build dependencies defined my my Wire.js specs?
 

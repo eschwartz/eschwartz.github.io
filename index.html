@@ -10,7 +10,7 @@ stylesheet: 'post-list'
     <article>
       <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
 
-      <p>{{ post.excerpt }}...</p>
+      <p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}</p>
     </article>
   </li>
   {% endfor %}

@@ -614,7 +614,7 @@ code {
 /* line 7, ../scss/partials/_stickman.scss */
 .stick-man:after {
   content: '';
-  background-image: url('../images/stick_man.png?1409880645');
+  background-image: url('../images/stick_man.png?1410357220');
   background-size: auto 179px;
   background-repeat: no-repeat;
   width: 92px;
@@ -630,94 +630,69 @@ code {
 }
 /* line 24, ../scss/partials/_stickman.scss */
 .stick-man:hover:after {
-  animation: animationFrames linear 0.6s;
+  animation: animationFrames linear 1s;
   animation-iteration-count: 1;
-  -webkit-animation: animationFrames linear 0.4s;
+  -webkit-animation: animationFrames linear 1s;
   -webkit-animation-iteration-count: 1;
-  -moz-animation: animationFrames linear 0.4s;
+  -moz-animation: animationFrames linear 1s;
   -moz-animation-iteration-count: 1;
-  -o-animation: animationFrames linear 0.4s;
+  -o-animation: animationFrames linear 1s;
   -o-animation-iteration-count: 1;
-  -ms-animation: animationFrames linear 0.4s;
+  -ms-animation: animationFrames linear 1s;
   -ms-animation-iteration-count: 1;
 }
 
 @keyframes animationFrames {
-  /* line 41, ../scss/partials/_stickman.scss */
   0% {
     transform: rotate(0deg) scaleX(1) scaleY(1);
   }
-
-  /* line 44, ../scss/partials/_stickman.scss */
   51% {
     transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
   }
-
-  /* line 47, ../scss/partials/_stickman.scss */
   100% {
     transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
   }
 }
 @-moz-keyframes animationFrames {
-  /* line 53, ../scss/partials/_stickman.scss */
   0% {
     -moz-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
-
-  /* line 56, ../scss/partials/_stickman.scss */
   51% {
     -moz-transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
   }
-
-  /* line 59, ../scss/partials/_stickman.scss */
   100% {
     -moz-transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
   }
 }
 @-webkit-keyframes animationFrames {
-  /* line 65, ../scss/partials/_stickman.scss */
   0% {
     -webkit-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
-
-  /* line 68, ../scss/partials/_stickman.scss */
   51% {
     -webkit-transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
   }
-
-  /* line 71, ../scss/partials/_stickman.scss */
   100% {
     -webkit-transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
   }
 }
 @-o-keyframes animationFrames {
-  /* line 77, ../scss/partials/_stickman.scss */
   0% {
     -o-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
-
-  /* line 80, ../scss/partials/_stickman.scss */
   51% {
     -o-transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
   }
-
-  /* line 83, ../scss/partials/_stickman.scss */
   100% {
     -o-transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
   }
 }
 @-ms-keyframes animationFrames {
-  /* line 89, ../scss/partials/_stickman.scss */
   0% {
     -ms-transform: rotate(0deg) scaleX(1) scaleY(1);
   }
-
-  /* line 92, ../scss/partials/_stickman.scss */
   51% {
     -ms-transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
   }
-
-  /* line 95, ../scss/partials/_stickman.scss */
   100% {
     -ms-transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
   }
@@ -768,7 +743,7 @@ For more information, please refer to <http://unlicense.org>
 /* Comment */
 /* line 32, ../scss/partials/_syntax.scss */
 .highlight .err {
-  border: 1px solid red;
+  border: 1px solid #FF0000;
 }
 
 /* Error */
@@ -794,7 +769,7 @@ For more information, please refer to <http://unlicense.org>
 /* Comment.Multiline */
 /* line 36, ../scss/partials/_syntax.scss */
 .highlight .cp {
-  color: #bc7a00;
+  color: #BC7A00;
 }
 
 /* Comment.Preproc */
@@ -814,7 +789,7 @@ For more information, please refer to <http://unlicense.org>
 /* Comment.Special */
 /* line 39, ../scss/partials/_syntax.scss */
 .highlight .gd {
-  color: #a00000;
+  color: #A00000;
 }
 
 /* Generic.Deleted */
@@ -826,7 +801,7 @@ For more information, please refer to <http://unlicense.org>
 /* Generic.Emph */
 /* line 41, ../scss/partials/_syntax.scss */
 .highlight .gr {
-  color: red;
+  color: #FF0000;
 }
 
 /* Generic.Error */
@@ -839,13 +814,13 @@ For more information, please refer to <http://unlicense.org>
 /* Generic.Heading */
 /* line 43, ../scss/partials/_syntax.scss */
 .highlight .gi {
-  color: #00a000;
+  color: #00A000;
 }
 
 /* Generic.Inserted */
 /* line 44, ../scss/partials/_syntax.scss */
 .highlight .go {
-  color: gray;
+  color: #808080;
 }
 
 /* Generic.Output */
@@ -871,7 +846,7 @@ For more information, please refer to <http://unlicense.org>
 /* Generic.Subheading */
 /* line 48, ../scss/partials/_syntax.scss */
 .highlight .gt {
-  color: #0040d0;
+  color: #0040D0;
 }
 
 /* Generic.Traceback */
@@ -898,7 +873,7 @@ For more information, please refer to <http://unlicense.org>
 /* Keyword.Namespace */
 /* line 52, ../scss/partials/_syntax.scss */
 .highlight .kp {
-  color: green;
+  color: #008000;
 }
 
 /* Keyword.Pseudo */
@@ -911,7 +886,7 @@ For more information, please refer to <http://unlicense.org>
 /* Keyword.Reserved */
 /* line 54, ../scss/partials/_syntax.scss */
 .highlight .kt {
-  color: #b00040;
+  color: #B00040;
 }
 
 /* Keyword.Type */
@@ -923,19 +898,19 @@ For more information, please refer to <http://unlicense.org>
 /* Literal.Number */
 /* line 56, ../scss/partials/_syntax.scss */
 .highlight .s {
-  color: #ba2121;
+  color: #BA2121;
 }
 
 /* Literal.String */
 /* line 57, ../scss/partials/_syntax.scss */
 .highlight .na {
-  color: #7d9029;
+  color: #7D9029;
 }
 
 /* Name.Attribute */
 /* line 58, ../scss/partials/_syntax.scss */
 .highlight .nb {
-  color: green;
+  color: #008000;
 }
 
 /* Name.Builtin */
@@ -954,7 +929,7 @@ For more information, please refer to <http://unlicense.org>
 /* Name.Constant */
 /* line 61, ../scss/partials/_syntax.scss */
 .highlight .nd {
-  color: #aa22ff;
+  color: #AA22FF;
 }
 
 /* Name.Decorator */
@@ -974,13 +949,13 @@ For more information, please refer to <http://unlicense.org>
 /* Name.Exception */
 /* line 64, ../scss/partials/_syntax.scss */
 .highlight .nf {
-  color: blue;
+  color: #0000FF;
 }
 
 /* Name.Function */
 /* line 65, ../scss/partials/_syntax.scss */
 .highlight .nl {
-  color: #a0a000;
+  color: #A0A000;
 }
 
 /* Name.Label */
@@ -1000,7 +975,7 @@ For more information, please refer to <http://unlicense.org>
 /* Name.Tag */
 /* line 68, ../scss/partials/_syntax.scss */
 .highlight .nv {
-  color: #19177c;
+  color: #19177C;
 }
 
 /* Name.Variable */
@@ -1043,13 +1018,13 @@ For more information, please refer to <http://unlicense.org>
 /* Literal.Number.Oct */
 /* line 75, ../scss/partials/_syntax.scss */
 .highlight .sb {
-  color: #ba2121;
+  color: #BA2121;
 }
 
 /* Literal.String.Backtick */
 /* line 76, ../scss/partials/_syntax.scss */
 .highlight .sc {
-  color: #ba2121;
+  color: #BA2121;
 }
 
 /* Literal.String.Char */
@@ -1062,7 +1037,7 @@ For more information, please refer to <http://unlicense.org>
 /* Literal.String.Doc */
 /* line 78, ../scss/partials/_syntax.scss */
 .highlight .s2 {
-  color: #ba2121;
+  color: #BA2121;
 }
 
 /* Literal.String.Double */
@@ -1075,7 +1050,7 @@ For more information, please refer to <http://unlicense.org>
 /* Literal.String.Escape */
 /* line 80, ../scss/partials/_syntax.scss */
 .highlight .sh {
-  color: #ba2121;
+  color: #BA2121;
 }
 
 /* Literal.String.Heredoc */
@@ -1088,49 +1063,49 @@ For more information, please refer to <http://unlicense.org>
 /* Literal.String.Interpol */
 /* line 82, ../scss/partials/_syntax.scss */
 .highlight .sx {
-  color: green;
+  color: #008000;
 }
 
 /* Literal.String.Other */
 /* line 83, ../scss/partials/_syntax.scss */
 .highlight .sr {
-  color: #bb6688;
+  color: #BB6688;
 }
 
 /* Literal.String.Regex */
 /* line 84, ../scss/partials/_syntax.scss */
 .highlight .s1 {
-  color: #ba2121;
+  color: #BA2121;
 }
 
 /* Literal.String.Single */
 /* line 85, ../scss/partials/_syntax.scss */
 .highlight .ss {
-  color: #19177c;
+  color: #19177C;
 }
 
 /* Literal.String.Symbol */
 /* line 86, ../scss/partials/_syntax.scss */
 .highlight .bp {
-  color: green;
+  color: #008000;
 }
 
 /* Name.Builtin.Pseudo */
 /* line 87, ../scss/partials/_syntax.scss */
 .highlight .vc {
-  color: #19177c;
+  color: #19177C;
 }
 
 /* Name.Variable.Class */
 /* line 88, ../scss/partials/_syntax.scss */
 .highlight .vg {
-  color: #19177c;
+  color: #19177C;
 }
 
 /* Name.Variable.Global */
 /* line 89, ../scss/partials/_syntax.scss */
 .highlight .vi {
-  color: #19177c;
+  color: #19177C;
 }
 
 /* Name.Variable.Instance */
@@ -1156,3 +1131,5 @@ For more information, please refer to <http://unlicense.org>
   margin-left: auto;
   margin-right: auto;
 }
+
+/*# sourceMappingURL=post.css.map */

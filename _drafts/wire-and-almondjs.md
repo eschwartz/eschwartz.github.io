@@ -1,7 +1,7 @@
 ---
 layout: post
 tags : [javascript, Wire.js, Almond.js, RequireJS, IoC, dependency injection]
-title: "Wire.js builds using the Almond.js AMD shim"
+title: "Optimize Wire.js builds with an AMD shim"
 ---
 I tend to geek out on things like dependency injection, so I've really enjoyed using [Wire.js](https://github.com/cujojs/wire). If you're not familiar with Wire.js, it's basically a dependency injection library for javascript.
 

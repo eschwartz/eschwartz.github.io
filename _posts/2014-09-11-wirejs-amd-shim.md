@@ -3,7 +3,7 @@ layout: post
 tags : [javascript, Wire.js, Almond.js, RequireJS, IoC, dependency injection]
 title: "Optimize Wire.js builds with an AMD shim"
 ---
-I tend to geek out on things like dependency injection, so I've really enjoyed using [Wire.js](https://github.com/cujojs/wire). If you're not familiar with Wire.js, it's basically a dependency injection library for javascript.
+I'm a total nerd over dependency injection, so I've really enjoyed using [Wire.js](https://github.com/cujojs/wire). If you're not familiar with Wire.js, it's basically a dependency injection library for javascript.
 
 
 I'm using Wire.js on a weather mapping application called [Aeris Interactive](http://wx.hamweather.com/local/us/mn/minneapolis/interactive.html), which I am building my for my employer, [HAMWeather](http://www.hamweather.com/). The heavy lifting for Aeris Interactive is all done by an open source library I built for HAMWeather called [Aeris.js](https://github.com/hamweather/aerisjs). This means that most of the work I'm doing on Aeris Interactive is bootstrapping, configuration, and integration.

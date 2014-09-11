@@ -9,6 +9,8 @@ theme:
   <meta charset="UTF-8">
   <title>{{ site.title }}- Web Developer</title>
 
+  <link rel="icon" type="image/png" href="avatar.png">
+
   <link href='http://fonts.googleapis.com/css?family=Lato:700|Libre+Baskerville:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="{{ ASSET_PATH }}/css/{{ page.stylesheet }}.css"/>
 </head>
@@ -36,6 +38,33 @@ theme:
 
 {{ content }}
 
+  <script type="text/javascript">
+    window.SITE_DOMAIN = "{{ site.production_url }}".
+      match(new RegExp('http://(.+)'))[1];
+
+
+    (function openLinksInNewWindow() {
+      [].forEach.call(getRemoteLinks(), openLinkInNewWindow);
+
+      function getRemoteLinks() {
+        var link_els = document.getElementsByTagName('a');
+
+        return [].filter.call(link_els, isLinkRemote);
+      }
+
+      function isLinkRemote(link_el) {
+        var href = link_el.href;
+        var isRemote = !!href.match(/^http/);
+        var isLocalDomain = !!href.match(new RegExp(SITE_DOMAIN));
+
+        return isRemote && !isLocalDomain;
+      }
+
+      function openLinkInNewWindow(link_el) {
+        link_el.setAttribute('target', '_blank');
+      }
+    })();
+  </script>
 
 </body>
 </html>

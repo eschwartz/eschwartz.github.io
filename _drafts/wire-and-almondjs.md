@@ -195,7 +195,7 @@ The asynchronous initialization code adds a little bit of complexity to our modu
 
 ### 2. How does `r.js` know to build dependencies defined my my Wire.js specs?
 
-So, awesome -- we have our modules working, we got rid of that pesky `wire!` plugin, it's time to run a build!
+So, awesome -- we have our modules working, we got rid of that pesky asynchronous `wire!` plugin, it's time to run a build!
 
 The r.js optimizer runs without a hitch. I turn gleefully to my browser, ready to reap the rewards of refactoring all of my modules.... and what's this?!
 
@@ -205,11 +205,11 @@ The r.js optimizer runs without a hitch. I turn gleefully to my browser, ready t
 
 The `controllers/timelinecontroller` AMD module is missing from my build!
 
-This is when I remember that I had been using the [wire-rjs-builder](https://github.com/pieter-vanderwerff/wire-rjs-builder.git) as my `wire!` plugin. This is a really handy project by [Pieter Vanderwerff](http://pieter.io/) which scans through your Wire.js spec during an r.js build, and adds any referenced module to the build. It was a lifesaver when I first found it. But now that I'm not using the `wire!` problem, how do I make sure all of the modules referenced in my spec get added to the build?
+This is when I remember that I had been using the [wire-rjs-builder](https://github.com/pieter-vanderwerff/wire-rjs-builder.git) as my `wire!` plugin. This is a really handy project by [Pieter Vanderwerff](http://pieter.io/) which scans through your Wire.js spec during an r.js build, and adds any referenced module to the build. It was a lifesaver when I first found it. But now that I'm not using the `wire!` plugin, how do I make sure all of the modules referenced in my spec get added to the build?
 
-What if we could still use the wire-rjs-builder AMD plugin, but only for builds?
+What if we could use the dependency-optimizing features of the `wire!` plugin, without using the asynchonous wiring functionality?
 
-So I created a wrapper around the wire-rjs-builder, which prevents it from wiring specs, but still adds any referenced modules to builds.
+Guess what? We can! I created a wrapper around the wire-rjs-builder, which prevents it from wiring specs, but still adds any referenced modules to builds.
 
 {% highlight javascript %}
   // buildSpec.js
@@ -217,7 +217,7 @@ So I created a wrapper around the wire-rjs-builder, which prevents it from wirin
     var buildSpec = {};
 
     buildSpec.load = function(wireSpec, parentRequire, onload, config) {
-      // We're in an r.js build:
+      // We're in an r.js optimizer build:
       // let the wire-rjs-builder do its thing
       if (config.isBuild) {
         rjsBuilder.load(wireSpec, parentRequire, onload, config);
@@ -235,7 +235,7 @@ So I created a wrapper around the wire-rjs-builder, which prevents it from wirin
   });
 {% endhighlight %}
 
-The `buildSpec!` acts like the `wire!` plugin during a build, but otherwise it just resolved with the raw spec object.
+Our ne `buildSpec!` plugin acts like the `wire!` plugin during an r.js optimizer build, but otherwise it simply resolves with the raw spec object.
 
 With a simple modification to my AnimationModule, I can fix my build-dependency issue:
 
@@ -271,10 +271,10 @@ What did I learn from all of this?
 
 I'm still really happy with Wire.js. Even with the amount of time I've spent trying to grok how it all works, I feel like it has saved me time in the long run, and made my code easier to read and more maintainable.
 
-======
+- - -
 
-### My first blog post!
+### BTW: My first blog post!
 
-Every day I learn something new at work, and I'm always geeking out over some new library/coding-pattern/bug. And while my wife is very kind to humors my long technical rants, I feel a coding blog *might* be a more appropriate outlet.
+Every day I learn something new at work, and I'm always geeking out over some new library/coding-pattern/bug. Those closest to me will smile politely when I go on technical rants... but I feel like coding blog *might* be a better outlet.
 
-I'd love to your feedback/complaints/ideas. Happy coding!
+I'd love to your feedback/complaints/ideas - you can find my contact info on my [github page](https://github.com/eschwartz/). Happy coding!

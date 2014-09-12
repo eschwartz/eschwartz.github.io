@@ -1,3 +1,5 @@
+@import "../includes/media-widths";
+
 .stick-man {
   display: block;
   position: relative;
@@ -17,6 +19,16 @@
     right: -80px;
 
     opacity: 0.75;
+
+    @include below-sm {
+      background-image: image-url('avatar.png');
+      background-size: cover;
+      width: 30px;
+      height: 30px;
+
+      top: 8px;
+      right: 0;
+    }
   }
 
   &:hover {

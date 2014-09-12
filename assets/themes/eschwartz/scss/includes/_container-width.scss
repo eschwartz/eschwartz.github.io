@@ -1,3 +1,5 @@
+$article-width: 768px;
+
 @mixin container-width {
   width: 95%;
   max-width: $article-width;

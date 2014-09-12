@@ -1,9 +1,14 @@
 @import "../includes/container-width";
+@import "../includes/media-widths";
 
 header {
   @include container-width;
 
   padding-top: 60px;
+
+  @include below-md {
+    padding-top: 40px
+  }
 
 
   .title {

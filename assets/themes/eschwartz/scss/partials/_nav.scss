@@ -1,9 +1,14 @@
 @import "../includes/container-width";
+@import "../includes/media-widths";
 @import "../includes/clean-list";
 
 nav {
   @include container-width;
   padding: 10px 0;
+
+  @include below-sm {
+    padding-top: 20px;
+  }
 
   ul {
     @extend %clean-list;

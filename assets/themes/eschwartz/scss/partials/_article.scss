@@ -3,6 +3,10 @@
 
 article {
   @include container-width;
+
+  img {
+    max-width: 100%;
+  }
 }
 
 .date-written {
@@ -77,6 +81,7 @@ blockquote, blockquote p {
 code {
   font-family: $font-code;
   line-height: 1.5;
+  font-size: 16px;
   background: #f8f8f8;
 
   word-break: break-word;

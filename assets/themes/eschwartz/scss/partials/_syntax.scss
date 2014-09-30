@@ -4,6 +4,11 @@
 .highlight {
   overflow: scroll;
 
+  span {
+    font-size: 14px;
+    font-family: inherit;
+  }
+
   @include below-md {
     span {
       font-size: 12px;

@@ -67,3 +67,112 @@ We'll also make the app <s>ugly</s> semantic, so we don't have to worry about CS
 If you look at our even-numbers button example from earlier, you'll see we already have the bones for a user to add something to a list view. Let's see if we can just replace those buttons with a text input.
 
 <a class="jsbin-embed" href="http://jsbin.com/xilivo/embed?js&height=900px">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.3"></script>
+
+Pretty good, eh?
+
+### Requirement 2: A user can remove an item from their list
+
+This is where things get a little tricky. So far, we've just been taking a steam of inputs and adding each item in the stream to a list view. We could visualize that like so
+
+<div class="wide">
+{% highlight text %}
+
+Inputs: "work"...               "eat"...                     "sleep"...
+
+State:  {                       {                            {
+          items: ['work']         items: ['work', 'eat']       items: ['work', 'eat', 'sleep']
+        }                       }                            }
+
+View    <li>work</li>           <li>work</li>                <li>work</li>
+                                <li>eat</li>                 <li>eat</li>
+                                                             <li>sleep</li>
+{% endhighlight %}
+</div>
+
+The problem is that now we want to *remove* an item from the list view, and there's no way to go back and *remove* an item from the stream.
+
+So instead of thinking about a stream of list items, let's try thinking about a stream of *operations on state*. What do I mean by that? Well, let's start by looking at an `addTodo` operation:
+
+{% highlight javascript %}
+var addOperation = newItem =>
+    state => ({
+        items: state.items.concat(newItem)
+    });
+{% endhighlight %}
+
+As you can see, the `addOperation` returns a function which receives a state, and returns a modified state with the new todo item:
+
+{% highlight javascript %}
+var state = { items: ['work', 'eat'] };
+
+// Create an operation which adds 'sleep'' to state.items. 
+var addSleep = addOperation('sleep');
+
+addSleep(state);        // --> { items: ['work', 'eat', 'sleep'] }
+{% endhighlight %}
+
+And we could easily do this same thing for a `removeTodo` operation
+
+{% highlight javascript %}
+var removeOperation = itemToRemove =>
+    state => ({
+        items: state.items.filter(item => item !== itemToRemove)
+    });
+
+var state = { items: ['work', 'eat', 'sleep'] };
+var removeWork = removeOperation('work');
+
+removeWork(state);      // { items: ['eat', 'sleep'] }
+{% endhighlight %}
+
+Makes sense? Yes? Good.
+
+
+### A stream of operations
+
+So now, instead of thinking about working a stream of todo items, let's think about working with a stream of operations on our state:
+
+<div class="wide">
+{% highlight text %}
+
+Operations: addOperation("work")   addOperation("eat")          removeOperation("eat")
+
+State:     {                       {                            {
+             items: ['work']         items: ['work', 'eat']       items: ['work']
+           }                       }                            }
+
+View       <li>work</li>           <li>work</li>                <li>work</li>
+                                   <li>eat</li>
+{% endhighlight %}
+</div>
+
+We'll implement this operation by mapping our `intents` to operations, and then applying each operation to the state using `scan()`:
+
+{% highlight javascript %}
+function model(intents) {
+    var addOperations$ = intents.addTodo.
+        map(newItem => state => ({
+            items: state.items.concat(newItem)
+        });
+
+    var removeOperations$ = intents.removeTodo.
+        map(itemToRemove => state => ({
+            items: state.items.filter(item => item !== itemToRemove)
+        });
+
+    // Merge our operations into a single stream
+    // of operations on state
+    var allOperations$ = Rx.Observable.merge(addOperations$, removeOperations$);
+
+    // Apply operations to the state
+    var state$ = allOperations$.
+        scan((state, operation) => operation(state), { items: [] });
+
+    return state$;
+}
+{% endhighlight %}
+
+
+Here's the whole thing, in all it's dead-simple glory.
+
+<a class="jsbin-embed" href="http://jsbin.com/redeko/embed?js&height=920px">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.3"></script>

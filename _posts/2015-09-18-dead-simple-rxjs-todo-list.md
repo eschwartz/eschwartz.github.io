@@ -10,7 +10,7 @@ I'm really interested in trying to wrap my head around RxJS, and functional prog
 
 There is a TodoMVC example using [RxJS](https://github.com/cyclejs/todomvc-cycle), and I spent quite a bit of time trying to grok what was going on in there. The example Todo app just tries too hard to show off all the features, which makes it really tough to understand for a beginner.
 
-After a many meeting between my head and the desk, I finally came up with a simple list view using RxJS and Cycle.js.
+After a many meeting between my head and the desk, I finally came up with a simple list view using RxJS and [Cycle.js](http://cycle.js.org/).
 
 So in the interest of saving the brain cells of other developers, I present to you:
 
@@ -35,7 +35,7 @@ Let's start by taking a look at [Cycle.js](http://cycle.js.org/), a small applic
 
 Let's try integrating Cycle.js with our button-click example.
 
-<a class="jsbin-embed" href="http://jsbin.com/tayoci/embed?js&height=940px">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.3"></script>
+<a class="jsbin-embed" href="http://jsbin.com/tayoci/embed?js&height=960px">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.3"></script>
 
 As you can see, the core business logic is similar to our first example. The main differences are in:
 
@@ -45,7 +45,7 @@ As you can see, the core business logic is similar to our first example. The mai
 
 ## Let's refactor
 
-That `main()`` function is a little long, and I'm seeing view stuff right next to state stuff, which I don't really like. The [cycle.js docs propose a Model-View-Intent pattern](http://cycle.js.org/model-view-intent.html). Without going to much into it, I'll show you how that might look with this code.
+That `main()` function is a little long, and I'm seeing view stuff right next to state stuff, which I don't really like. The [cycle.js docs propose a Model-View-Intent pattern](http://cycle.js.org/model-view-intent.html). Without going to much into it, I'll show you how that might look with this code.
 
 <a class="jsbin-embed" href="http://jsbin.com/rafitu/embed?js&height=900px">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.3"></script>
 
@@ -83,7 +83,7 @@ State:  {                       {                            {
           items: ['work']         items: ['work', 'eat']       items: ['work', 'eat', 'sleep']
         }                       }                            }
 
-View    <li>work</li>           <li>work</li>                <li>work</li>
+View:   <li>work</li>           <li>work</li>                <li>work</li>
                                 <li>eat</li>                 <li>eat</li>
                                                              <li>sleep</li>
 {% endhighlight %}
@@ -100,15 +100,15 @@ var addOperation = newItem =>
     });
 {% endhighlight %}
 
-As you can see, the `addOperation` returns a function which receives a state, and returns a modified state with the new todo item:
+As you can see, the `addOperation` returns a function which receives a state, and sends back a modified state with the new todo item:
 
 {% highlight javascript %}
 var state = { items: ['work', 'eat'] };
 
-// Create an operation which adds 'sleep'' to state.items. 
+// Create an operation which adds 'sleep' to state.items.
 var addSleep = addOperation('sleep');
 
-addSleep(state);        // --> { items: ['work', 'eat', 'sleep'] }
+addSleep(state);        // { items: ['work', 'eat', 'sleep'] }
 {% endhighlight %}
 
 And we could easily do this same thing for a `removeTodo` operation
@@ -134,6 +134,9 @@ So now, instead of thinking about working a stream of todo items, let's think ab
 
 <div class="wide">
 {% highlight text %}
+Inputs:     "work"                 "eat"
+
+Delete Btn:                                                     "eat"
 
 Operations: addOperation("work")   addOperation("eat")          removeOperation("eat")
 
@@ -146,19 +149,24 @@ View       <li>work</li>           <li>work</li>                <li>work</li>
 {% endhighlight %}
 </div>
 
-We'll implement this operation by mapping our `intents` to operations, and then applying each operation to the state using `scan()`:
+We'll implement this pattern by mapping our `intents` to operations, and then applying each operation to the state using `scan()`:
 
 {% highlight javascript %}
+const Operations = {
+  AddItem: newItem => state => ({
+    items: state.items.concat(newItem)
+  }),
+  RemoveItem: itemToRemove => state => ({
+    items: state.items.filter(item => item !== itemToRemove)
+  })
+};
+
 function model(intents) {
     var addOperations$ = intents.addTodo.
-        map(newItem => state => ({
-            items: state.items.concat(newItem)
-        });
+        map(item => Operations.AddItem(item));
 
     var removeOperations$ = intents.removeTodo.
-        map(itemToRemove => state => ({
-            items: state.items.filter(item => item !== itemToRemove)
-        });
+        map(item => Operations.RemoveItem(item);
 
     // Merge our operations into a single stream
     // of operations on state
@@ -172,7 +180,22 @@ function model(intents) {
 }
 {% endhighlight %}
 
-
 Here's the whole thing, in all it's dead-simple glory.
 
 <a class="jsbin-embed" href="http://jsbin.com/redeko/embed?js&height=920px">JS Bin on jsbin.com</a><script src="http://static.jsbin.com/js/embed.min.js?3.34.3"></script>
+
+Let's review what we did here:
+
+* We created stream of user-initiated events (input todo item text, click a delete btn)
+* We mapped those events to named "intentions", giving them meaning specific to our application
+* We mapped our intentions to *operations on a state*, giving them a consistent interface
+* We applied each operation to the state
+* We mapped the state to a `virtual-dom`, which was renderd by Cycle.js
+
+I feel like this is a fairly elegant approach to building applications, and I hope this helps you get started with RxJS and Cycle.js.
+
+If you want to play around with the Todo list app, [you can download my repo on github](https://github.com/eschwartz/rxtodo). [You can also see how I pulled out the `item` logic into a custom element](https://github.com/eschwartz/rxtodo/blob/master/src/element/item.js).
+
+I also put together [a canvas pong game](https://github.com/eschwartz/cycle-pong) using Cycle.js with a custom `Canvas` driver. It's a bit of a work-in-progress at the moment, but you'll get an idea of how you can build a more complex application with RxJS.
+
+Happy coding!

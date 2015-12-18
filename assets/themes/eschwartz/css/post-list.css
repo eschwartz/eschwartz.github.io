@@ -608,17 +608,37 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
-/* line 73, ../scss/partials/_article.scss */
-blockquote, blockquote p {
-  padding: 0;
-  font-style: italic;
-  font-family: sans-serif;
-  font-size: 16px;
-  color: rgba(0, 0, 0, 0.95);
+/* line 72, ../scss/partials/_article.scss */
+a, a:visited {
+  color: #2B2BB1;
 }
 
-/* line 81, ../scss/partials/_article.scss */
+/* line 77, ../scss/partials/_article.scss */
+blockquote, blockquote p {
+  margin: 0;
+}
+
+/* line 80, ../scss/partials/_article.scss */
+blockquote {
+  padding: 0 0 0 1em;
+  border-left: 3px solid #656565;
+}
+/* line 83, ../scss/partials/_article.scss */
+blockquote blockquote {
+  padding: 0;
+  border-left: none;
+}
+/* line 87, ../scss/partials/_article.scss */
+blockquote ul {
+  margin: 0;
+}
+
+/* line 89, ../scss/partials/_article.scss */
+blockquote, blockquote p, blockquote ul, blockquote li {
+  color: #656565;
+}
+
+/* line 93, ../scss/partials/_article.scss */
 code {
   font-family: Menlo, monospace, serif;
   line-height: 1.5;
@@ -627,7 +647,7 @@ code {
   word-break: break-word;
 }
 
-/* line 90, ../scss/partials/_article.scss */
+/* line 102, ../scss/partials/_article.scss */
 .wide {
   margin-left: -50px;
   margin-right: -50px;

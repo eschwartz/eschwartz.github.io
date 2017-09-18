@@ -55,8 +55,7 @@ theme:
   </script>
 
   <script type="text/javascript">
-    window.SITE_DOMAIN = "{{ site.production_url }}".
-      match(new RegExp('http://(.+)'))[1];
+    window.SITE_DOMAIN = window.location.origin;
 
 
     (function openLinksInNewWindow() {
@@ -68,8 +67,8 @@ theme:
         return [].filter.call(link_els, isLinkRemote);
       }
 
-      function isLinkRemote(link_el) {
-        var href = link_el.href;
+      function isLinkRemote(linkEl) {
+        var href = linkEl.href;
         var isRemote = !!href.match(/^http/);
         var isLocalDomain = !!href.match(new RegExp(SITE_DOMAIN));
 

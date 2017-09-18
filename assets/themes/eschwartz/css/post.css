@@ -709,10 +709,10 @@ code {
     transform: rotate(0deg) scaleX(1) scaleY(1);
   }
   51% {
-    transform: rotate(360deg) scaleX(3) scaleY(3) skewX(0deg);
+    transform: rotate(360deg) scaleX(0.5) scaleY(0.5) skewX(0deg);
   }
   100% {
-    transform: rotate(720deg) scaleX(1) scaleY(0) skewX(0deg);
+    transform: rotate(720deg) scaleX(1) scaleY(1) skewX(0deg);
   }
 }
 @-moz-keyframes animationFrames {

@@ -9,7 +9,7 @@ $font-code: Menlo, monospace, serif;
 
 $text-color-title: rgba(0, 0, 0, 0.8);
 $text-color-header: rgba(0, 0, 0, 0.8);
-$text-color-article: rgba(0, 0, 0, 0.8);
+$text-color-article: #000;
 
 @import "partials/normalize";
 @import "partials/nav";

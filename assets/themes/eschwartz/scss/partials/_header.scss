@@ -4,7 +4,7 @@
 header {
   @include container-width;
 
-  padding-top: 60px;
+  padding-top: 22px;
 
   @include below-md {
     padding-top: 40px
@@ -15,7 +15,7 @@ header {
     display: inline-block;
     font-family: $font-title;
     color: $text-color-title;
-    font-size: 44px;
+    font-size: 50px;
     line-height: 1.35;
 
     a, a:hover {
@@ -27,7 +27,7 @@ header {
   .subtitle {
     font-family: $font-article;
     color: $text-color-header;
-    font-size: 16px;
+    font-size: 22px;
     font-style: italic;
   }
 }

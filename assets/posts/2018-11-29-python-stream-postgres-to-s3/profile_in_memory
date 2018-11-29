@@ -1,0 +1,33 @@
+With 3 million records:
+
+Complete in 37.11s
+Filename: profile_in_memory.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     9     50.2 MiB     50.2 MiB   @profile
+    10                             def main():
+    11     50.2 MiB      0.0 MiB       start_time = perf_counter()
+    12
+    13     52.2 MiB      2.0 MiB       db: Connection = create_engine('postgres://postgres@localhost:5432')
+    14
+    15                                 # Load all DB records into memory
+    16     52.2 MiB      0.0 MiB       results = db \
+    17    350.7 MiB    298.5 MiB           .execute("SELECT * FROM test_record") \
+    18                                     .fetchall()
+    19
+    20                                 # Convert DB records to CSV
+    21    350.7 MiB      0.0 MiB       csv_buffer = io.StringIO("")
+    22    350.7 MiB      0.0 MiB       csv_writer = csv.writer(csv_buffer, lineterminator='\n')
+    23    370.4 MiB     19.7 MiB       csv_writer.writerows(results)
+    24
+    25                                 # Upload the CSV to S3
+    26    375.1 MiB      4.7 MiB       s3 = boto3.client('s3')
+    27    375.1 MiB      0.0 MiB       s3.put_object(
+    28    375.1 MiB      0.0 MiB           Bucket='my-s3-bucket',
+    29    375.1 MiB      0.0 MiB           Key='db.csv',
+    30    425.2 MiB     50.1 MiB           Body=csv_buffer.getvalue().encode('utf8')
+    31                                 )
+    32
+    33    425.2 MiB      0.0 MiB       duration = perf_counter() - start_time
+    34    425.2 MiB      0.0 MiB       print(f"Complete in {round(duration, 2)}s")

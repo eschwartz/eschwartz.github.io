@@ -1,0 +1,34 @@
+Complete in 46.77s
+Filename: profile_streaming.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     8     79.8 MiB     79.8 MiB   @profile
+     9                             def main():
+    10     79.8 MiB      0.0 MiB       start_time = perf_counter()
+    11
+    12                                 # Create the DB read stream,
+    13                                 # and configure to execute a large query
+    14     79.8 MiB      0.0 MiB       db_read_stream = DbReadStream(
+    15     79.8 MiB      0.0 MiB           db=create_engine('postgres://postgres@localhost:5432'),
+    16     79.8 MiB      0.0 MiB           query="SELECT * FROM test_record",
+    17                                 )
+    18
+    19                                 # Create S3 write stream
+    20     82.4 MiB      2.6 MiB       s3_write_stream = smart_open('s3://my-s3-bucket/db.csv', 'wb')
+    21
+    22                                 # Iterate through the DB records, and write to S3
+    23     82.4 MiB      0.0 MiB       while True:
+    24                                     # Read 1 MB at a time
+    25    107.1 MiB     -5.3 MiB           chunk = db_read_stream.read(1024 * 1024)
+    26    107.1 MiB    -10.7 MiB           if not chunk:
+    27    106.9 MiB     -0.2 MiB               break
+    28
+    29    107.4 MiB     11.0 MiB           s3_write_stream.write(chunk)
+    30
+    31                                 # Close the stream
+    32    106.9 MiB      0.0 MiB       db_read_stream.close()
+    33     84.9 MiB    -22.0 MiB       s3_write_stream.close()
+    34
+    35     84.9 MiB      0.0 MiB       duration = perf_counter() - start_time
+    36     84.9 MiB      0.0 MiB       print(f"Complete in {round(duration, 2)}s")

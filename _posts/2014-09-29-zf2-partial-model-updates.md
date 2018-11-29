@@ -1,7 +1,7 @@
 ---
 layout: post
 tags : [zf2, zend framework 2, doctrine, jms serializer, REST api]
-title: "Apparently, I'm the first person ever to need an HTTP PUT endpoint"
+title: "Implemented a PUT endpoint in Zend Framework 2"
 excerpt: "It never ceases to amaze me, how seemingly common problems start to look like they must be fringe cases..."
 ---
 It never ceases to amaze me, how seemingly common problems start to look like they must be fringe cases once you start working on them. This week, me and my colleague [Seth Miller](http://four43.com/) were tasked with putting together a RESTful HTTP PUT endpoint, to accept partial updates to a data model.

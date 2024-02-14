@@ -12,7 +12,7 @@ I recently worked at an organization that relied heavily on the "scream test" re
 
 To be fair, this was a somewhat effective and certainly inexpensive strategy while the system was still limited to internal use. But as we began onboarding paying customers, the business started to recognize the downsides of the approach.
 
-We had little [observability](https://www.honeycomb.io/blog/what-is-observability-key-components-best-practices) into our system. That is to say, no one really knew how well production was performing, how often it failed, what types of errors our customers were seeing, or how code changes were effecting the system.
+We had little [observability](https://www.honeycomb.io/blog/what-is-observability-key-components-best-practices) into our system. That is to say, no one really knew how well production was performing, how often it failed, what types of errors our customers were seeing, or how code changes were affecting the system.
 
 Addressing this challenge became a priority for my team. Having recently finished a terrific [book on observability engineering](https://info.honeycomb.io/observability-engineering-oreilly-book-2022), I came to believe that OpenTelemetry and related observability practices could give our engineering teams much better insight into our production systems. I was excited to give [OpenTelemetry](https://opentelemetry.io/) some hands-on consideration.
 
@@ -27,7 +27,7 @@ So what is a _trace_? I like to think of traces as **structured logs + context**
 
 There is a lot that _can_ be done with tracing, and it can intimidate starting out. In this blog post, I'll show how standard logs may be "upgraded" to OpenTelemetry traces, and demonstrate some of the benefits of doing so. We'll work through some real code examples using a web API server written in Go.
 
-> The full working code for these examples is available at [github.com/eschwartz/otel-go-demo](https://github.com/eschwartz/otel-go-demo). We'll use a [free Honeycomb account](https://www.honeycomb.io/) to visualize traces, though other [many other vendors are supported](https://opentelemetry.io/ecosystem/vendors/).
+> The full working code for these examples is available at [github.com/eschwartz/otel-go-demo](https://github.com/eschwartz/otel-go-demo). We'll use a [free Honeycomb account](https://www.honeycomb.io/) to visualize traces, though [many other vendors are supported](https://opentelemetry.io/ecosystem/vendors/).
 
 
 ## Standard Logging
@@ -281,11 +281,11 @@ Here we see that the `app.error` condition occurs most often when `app.limit = 0
 
 ![honeycomb bubble up screenshot](/assets/posts/2024-02-13-otel-intro/bubble-up.png)
 
-This is an incredible powerful tool digging into application issues. 
+This is an incredibly powerful tool digging into application issues. 
 
 ## Child Spans
 
-Having a trace with a single span may be sufficient for basic use cases. But often we'll want to use nested child spans to "trace" the code path through multiple operations. In this example, we'll create a child span to track the data service operation. This may help us figure out why certain requests are so slow!
+Having a trace with a single span may be sufficient for basic use cases. But often we'll want to use nested child spans to "trace" the code path across multiple operations. In this example, we'll create a child span to track the data service operation. This may help us figure out why certain requests are so slow!
 
 The OpenTelemetry (`otel`) SDK for Go uses `context` to generate child spans from parents. Here, we'll pass a `ctx` argument to the data service, so it can create a child span:
 
@@ -346,4 +346,4 @@ But at its most basic level, OpenTelemetry is really just **structured logs + co
 
 Structured logs with context are powerful in their own right, especially when combined with tooling like _Bubble Up._ But where OpenTelemetry really shines is in _distributed tracing._ Imagine traces that contain information about the _entire_ request, from the client side, to APIs, to backend microservices, and so on.
 
-This post is meant as a really basic introduction to observability with OpenTelemetry. In my next posts, I will discuss how to setup distributed tracing, including some edge cases which will require custom tooling. 
+This post is meant as a basic introduction to observability with OpenTelemetry. In my next posts, I will discuss how to setup distributed tracing, including some edge cases which will require custom tooling. 

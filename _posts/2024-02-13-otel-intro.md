@@ -18,7 +18,7 @@ Addressing this challenge became a priority for my team. Having recently finishe
 
 ## What is OpenTelemetry?
 
-OpenTelemetry is an open source [specification](https://opentelemetry.io/docs/specs/otel/) and [suite of tools](https://opentelemetry.io/docs/languages/go/instrumentation/) for working with _traces_.
+OpenTelemetry is an open-source [specification](https://opentelemetry.io/docs/specs/otel/) and [suite of tools](https://opentelemetry.io/docs/languages/go/instrumentation/) for working with _traces_.
 
 So what is a _trace_? I like to think of traces as **structured logs + context**:
 
@@ -91,7 +91,7 @@ Database query failed! unexpected empty value
 This is a great setup for local debugging. We can easily see every major operation that happens in a request, and identify scenarios where the system fails. But as we scale to thousands or millions of requests, we run into some problems:
 
 - The logs are not easily searchable. We can `grep` logs for certain values, but those values are likely to change over time, or across endpoints
-- We are not setup for analysis and visualization. For example, we may want to see a histogram counting the popularity of each search term. This would not be possible without some extra processing steps.
+- We are not set up for analysis and visualization. For example, we may want to see a histogram counting the popularity of each search term. This would not be possible without some extra processing steps.
 - Logs are lacking context. If we `grep` for logs containing `Database query failed!`, we lose important bits of information which may explain the error (like, that `limit=0` in the search query)
 
 
@@ -281,7 +281,7 @@ Here we see that the `app.error` condition occurs most often when `app.limit = 0
 
 ![honeycomb bubble up screenshot](/assets/posts/2024-02-13-otel-intro/bubble-up.png)
 
-This is an incredibly powerful tool digging into application issues. 
+This is an incredibly powerful tool for digging into application issues. 
 
 ## Child Spans
 
@@ -298,7 +298,7 @@ func HandleGetItems(w http.ResponseWriter, r *http.Request) {
   // ...process query params, etc
   
   // As we execute the DB query, we'll pass the span `ctx` to
-  // the FindItems() method, so it can create it's own chlid span
+  // the FindItems() method, so it can create its own chlid span
   items, err := dataService.FindItems(searchTerm, limitInt, ctx)
   
   // ...generate response
@@ -337,13 +337,13 @@ I've found this Bubble Up tool to be incredibly powerful in tracking down hard-t
 
 ## Takeaways
 
-Jumping into OpenTelemetry can feel like a daunting endeavour. When I started looking into OpenTelemetry, I found myself incredibly lost just trying to figure out all these new terms and concepts: traces, spans, collectors, propagation, baggage, etc. And on top of that, tracing introduces some radical paradigm shifts in how we approach logging and observability.
+Jumping into OpenTelemetry can feel like a daunting endeavor. When I started looking into OpenTelemetry, I found myself incredibly lost just trying to figure out all these new terms and concepts: traces, spans, collectors, propagation, baggage, etc. And on top of that, tracing introduces some radical paradigm shifts in how we approach logging and observability.
 
-But at its most basic level, OpenTelemetry is really just **structured logs + context** -- concepts that many of us are already familiar with. Framing it in this way, OpenTelemetry might feel more accessible to your and your engineering team.
+But at its most basic level, OpenTelemetry is really just **structured logs + context** -- concepts that many of us are already familiar with. Framing it in this way, OpenTelemetry might feel more accessible to you and your engineering team.
 
 
 ## Next: Distributed Tracing with OpenTelemetry
 
 Structured logs with context are powerful in their own right, especially when combined with tooling like _Bubble Up._ But where OpenTelemetry really shines is in _distributed tracing._ Imagine traces that contain information about the _entire_ request, from the client side, to APIs, to backend microservices, and so on.
 
-This post is meant as a basic introduction to observability with OpenTelemetry. In my next posts, I will discuss how to setup distributed tracing, including some edge cases which will require custom tooling. 
+This post is meant as a basic introduction to observability with OpenTelemetry. In my next posts, I will discuss how to set up distributed tracing, including some edge cases which will require custom tooling. 

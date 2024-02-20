@@ -1,7 +1,7 @@
 ---
 layout: post
 tags : [observability, go, golang, opentelemetry, otel]
-title: "Intro to Observability with OpenTelemetry"
+title: "Observability with OpenTelemetry: Tracing vs Structured Logs"
 ---
 
 

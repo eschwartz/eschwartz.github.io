@@ -1,7 +1,7 @@
 ---
 layout: post
 tags : [observability, go, golang, opentelemetry, otel, js]
-title: "Observability with OpenTelemetry: Propagating HTTP Requests"
+title: "Observability with OpenTelemetry: Trace Propagation Between Services"
 ---
 
 In my last post about [_Observability with OpenTelemetry_](/2024/02/13/otel-intro), we explored the basic components of OpenTelemetry -- traces, spans, attributes -- and considered tracing as a way to add context to structured logs. If you are not already familiar with the basic concepts of OpenTelemetry, I highly recommend you [go back and check out that post.](/2024/02/13/otel-intro)

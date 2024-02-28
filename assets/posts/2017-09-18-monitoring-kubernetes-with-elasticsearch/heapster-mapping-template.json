@@ -1,0 +1,411 @@
+{
+  "template": "heapster*",
+  "mappings": {
+    "_default_": {
+      "dynamic": false
+    },
+    "events": {
+      "dynamic": false,
+      "properties": {}
+    },
+    "filesystem": {
+      "dynamic": false,
+      "properties": {}
+    },
+    "general": {
+      "dynamic": false,
+      "properties": {}
+    },
+    "network": {
+      "dynamic": false,
+      "properties": {}
+    },
+    "memory": {
+      "dynamic": false,
+      "properties": {
+        "Metrics": {
+          "properties": {
+            "memory/limit": {
+              "properties": {
+                "gb": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "memory/node_allocatable": {
+              "properties": {
+                "gb": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "memory/node_capacity": {
+              "properties": {
+                "gb": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "memory/node_reservation": {
+              "properties": {
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "memory/node_utilization": {
+              "properties": {
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "memory/request": {
+              "properties": {
+                "gb": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "memory/rss": {
+              "properties": {
+                "gb": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "memory/usage": {
+              "properties": {
+                "gb": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "memory/working_set": {
+              "properties": {
+                "gb": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            }
+          }
+        },
+        "MetricsTags": {
+          "properties": {
+            "hostname": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "labelsKv": {
+              "properties": {
+                "name": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "serviceId": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "version": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "k8s-app": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                }
+              }
+            },
+            "namespace_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "nodename": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "pod_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
+        "Timestamp": {
+          "type": "date"
+        }
+      }
+    },
+    "cpu": {
+      "dynamic": false,
+      "properties": {
+        "Metrics": {
+          "properties": {
+            "cpu/limit": {
+              "properties": {
+                "cores": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "cpu/node_allocatable": {
+              "properties": {
+                "cores": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "cpu/node_capacity": {
+              "properties": {
+                "cores": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "cpu/node_reservation": {
+              "properties": {
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "cpu/node_utilization": {
+              "properties": {
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "cpu/request": {
+              "properties": {
+                "cores": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            },
+            "cpu/usage_rate": {
+              "properties": {
+                "cores": {
+                  "type": "double"
+                },
+                "value": {
+                  "type": "double"
+                }
+              }
+            }
+          }
+        },
+        "MetricsTags": {
+          "properties": {
+            "labelsKv": {
+              "properties": {
+                "env-development": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "env-production": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "env-staging": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "kubernetes": {
+                  "properties": {
+                    "io/hostname": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword",
+                          "ignore_above": 256
+                        }
+                      }
+                    }
+                  }
+                },
+                "name": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "serviceId": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "tier": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "type": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "version": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                },
+                "k8s-app": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword",
+                      "ignore_above": 256
+                    }
+                  }
+                }
+              }
+            },
+            "namespace_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "nodename": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "pod_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
+        "Timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

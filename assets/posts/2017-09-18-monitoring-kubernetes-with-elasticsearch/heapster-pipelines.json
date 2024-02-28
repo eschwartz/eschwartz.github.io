@@ -1,0 +1,69 @@
+{
+  "description": "Heapster pipeline",
+  "processors": [
+    {
+      "script": {
+        "tag": "Convert CPU values to cores",
+        "lang": "painless",
+        "inline": "if (ctx._type == 'cpu') { ctx.Metrics['cpu/usage_rate'].cores = ctx.Metrics['cpu/usage_rate'].value * 0.001; ctx.Metrics['cpu/limit'].cores = ctx.Metrics['cpu/limit'].value * 0.001; ctx.Metrics['cpu/request'].cores = ctx.Metrics['cpu/request'].value * 0.001; } if (ctx.Metrics['cpu/node_allocatable'] !== null) { ctx.Metrics['cpu/node_allocatable'].cores = ctx.Metrics['cpu/node_allocatable'].value * 0.001; ctx.Metrics['cpu/node_capacity'].cores = ctx.Metrics['cpu/node_capacity'].value * 0.001; }"
+      }
+    },
+    {
+      "script": {
+        "tag": "Convert memory values to GiB",
+        "lang": "painless",
+        "inline": "if (ctx._type == 'memory') { ctx.Metrics['memory/request'].gb = (double)(ctx.Metrics['memory/request'].value / (double)(1024 * 1024 * 1024)); ctx.Metrics['memory/limit'].gb = ctx.Metrics['memory/limit'].value / (double)(1024 * 1024 * 1024); ctx.Metrics['memory/rss'].gb = ctx.Metrics['memory/rss'].value / (double)(1024 * 1024 * 1024); ctx.Metrics['memory/usage'].gb = ctx.Metrics['memory/usage'].value / (double)(1024 * 1024 * 1024); ctx.Metrics['memory/working_set'].gb = ctx.Metrics['memory/working_set'].value / (double)(1024 * 1024 * 1024); } if (ctx.Metrics['memory/node_allocatable'] != null) { ctx.Metrics['memory/node_allocatable'].gb = ctx.Metrics['memory/node_allocatable'].value / (double)(1024 * 1024 * 1024); ctx.Metrics['memory/node_capacity'].gb = ctx.Metrics['memory/node_capacity'].value / (double)(1024 * 1024 * 1024); }"
+      }
+    },
+    {
+      "kv": {
+        "tag": "Split up labels into an object",
+        "field": "MetricsTags.labels",
+        "field_split": ",",
+        "value_split": ":",
+        "target_field": "MetricsTags.labelsKv",
+        "ignore_missing": true
+      }
+    },
+    {
+      "rename": {
+        "tag": "CPU Timestamp normalization",
+        "field": "CpuMetricsTimestamp",
+        "target_field": "Timestamp",
+        "ignore_missing": true
+      }
+    },
+    {
+      "rename": {
+        "tag": "FS Timestamp normalization",
+        "field": "FilesystemMetricsTimestamp",
+        "target_field": "Timestamp",
+        "ignore_missing": true
+      }
+    },
+    {
+      "rename": {
+        "tag": "General Timestamp normalization",
+        "field": "GeneralMetricsTimestamp",
+        "target_field": "Timestamp",
+        "ignore_missing": true
+      }
+    },
+    {
+      "rename": {
+        "tag": "Memory Timestamp normalization",
+        "field": "MemoryMetricsTimestamp",
+        "target_field": "Timestamp",
+        "ignore_missing": true
+      }
+    },
+    {
+      "rename": {
+        "tag": "Network Timestamp normalization",
+        "field": "NetworkMetricsTimestamp",
+        "target_field": "Timestamp",
+        "ignore_missing": true
+      }
+    }
+  ]
+}
